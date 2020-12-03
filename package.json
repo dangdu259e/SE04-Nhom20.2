@@ -35,6 +35,8 @@
     "eslint": "6.8.0",
     "jest": "25.5.4",
     "metro-react-native-babel-preset": "0.59.0",
+    "native-base": "^2.13.14",
+    "react-navigation-tabs": "^2.10.1",
     "react-test-renderer": "16.13.1"
   },
   "jest": {

@@ -1,34 +1,15 @@
 import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
-import { Container, Header, Left, Body, Right, Icon, Title, Text, Button } from 'native-base'
+import { Text, Button } from 'native-base'
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import {createStackNavigator} from 'react-navigation-stack';
+import CustomHeader from './CustomHeader'
 
-class CustomHeader extends React.Component{
-    render() {
-        return (
-            <Container>
-                <Header>
-                    <Left>
-                        <TouchableOpacity transparent>
-                            <Icon name='arrow-back' />
-                        </TouchableOpacity>
-                    </Left>
-                    <Body>
-                        <Title>Header</Title>
-                    </Body>
-                    <Right>
-                        <TouchableOpacity transparent>
-                            <Icon name='menu' />
-                        </TouchableOpacity>
-                    </Right>
-                </Header>
-            </Container>
-        );
-    }
-}
 class HomeScreen extends React.Component {
+    static navigationOptions= {
+        headerShown: false,
+    }
     onPressButton() {
         this.props.navigate('HomeDetails')
     }
@@ -118,8 +99,8 @@ const SettingStack = createStackNavigator({
 })
 
 const TabNavigator = createBottomTabNavigator({
-    Home: HomeScreen,
-    Settings: SettingsScreen,
+    Home: HomeStack,
+    Settings: SettingStack,
 });
 
 export default createAppContainer(TabNavigator);

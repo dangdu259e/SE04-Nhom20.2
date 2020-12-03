@@ -9,6 +9,9 @@ import flatListData from './AllOfCatsDatas'
 import TFile from './TFile';
 
 class Cat extends Component {
+    static navigationOptions= {
+        headerShown: false,
+    }
     render() {
         return (
             <View style={{backgroundColor: 'red'}} >

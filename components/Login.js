@@ -12,36 +12,26 @@
 //https://vntalking.com/react-native-phan-biet-props-va-state-don-gian-de-hieu.html
 import React,{Component} from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
   Animated,
   Text,
-  StatusBar,
-  Platform,
   TextInput,
   TouchableOpacity,
-  TouchableWithoutFeedback, Keyboard, AppRegistry,
-
+  TouchableWithoutFeedback, Keyboard
 } from 'react-native';
-import {LoginButton} from 'react-native-fbsdk'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import {COLOR_DARK_RED, COLOR_GRAY, COLOR_LIGHT_RED} from './myColor'
-import {Button, Image} from 'react-native-elements';
 import {  createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack'
-import { NavigationContainer } from 'react-navigation';
-import Details from './Details';
-import TestDrawer from './TestDrawer';
+
 import ListOfCats from "./ListOfCats";
+import TabNav from "./TabNav";
 
 const FBLoginButton = require('./FBLoginButton');
 
 class Login extends Component{
   static navigationOptions= {
-    headerShown: null,
+    headerShown: false,
   }
   render(){
     const Devider = (props) =>{

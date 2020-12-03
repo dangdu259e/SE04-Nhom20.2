@@ -11,6 +11,9 @@ import Slider from './Slider';
 import Data from './InfoOfCatDatas'
 
 class Cat extends React.Component{
+    static navigationOptions= {
+        headerShown: false,
+    }
     render() {
         return (
             <View style={styles.container}>
