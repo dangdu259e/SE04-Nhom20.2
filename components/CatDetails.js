@@ -4,22 +4,39 @@
  * @format
  * @flow strict-local
  */
-import {View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, Dimensions} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import React from 'react';
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import flatListData from './AllOfCatsDatas'
 import Slider from './Slider';
 import Data from './InfoOfCatDatas'
 
 class Cat extends React.Component{
-    static navigationOptions= {
-        headerShown: false,
+    constructor() {
+        super();
+        this.state = {
+            num:0
+        }
     }
+    // static navigationOptions= {
+    //     headerShown: false,
+    // }
+
+    click() {
+        this.setState({
+            num:this.state.num+1
+        })
+    }
+
     render() {
         return (
             <View style={styles.container}>
 
                 <View style={{flex: 1}}>
-                    <Text>title</Text>
+                    <TouchableOpacity style={{flexDirection: 'row'}}>
+                        <Ionicons name="cart-outline" style={styles.cart}/>
+                        <Text style={{color: 'red', fontWeight: 'bold'}}>{this.state.num}</Text>
+                    </TouchableOpacity>
                 </View>
 
                 {/*View of image*/}
@@ -42,7 +59,9 @@ class Cat extends React.Component{
                 </View>
                 {/*view for button buy*/}
                 <View style={styles.viewofbutton}>
-                    <TouchableOpacity style={styles.button}><Text>Buy</Text></TouchableOpacity>
+                    <TouchableOpacity style={styles.button} onPress={ () => {this.click()} }>
+                        <Text style={styles.text_butt}>Add to cart</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         );
@@ -54,41 +73,47 @@ export default Cat
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'blue',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        backgroundColor: 'ghostwhite'
+    },
+    cart: {
+        fontSize: 45,
+        paddingLeft: '80%',
+        color: 'orange'
     },
     viewcost: {
         justifyContent: 'center',
         flexDirection: 'row-reverse',
         alignItems: 'center',
-        backgroundColor: 'red',
+        // backgroundColor: 'red',
         padding: 10
     },
     cost: {
         fontWeight: 'bold',
     },
     textBox: {
-        // flex: 2,
-        // borderWidth:2
+        backgroundColor: 'lavender'
     },
     textInBox: {
-        margin: 20
+        margin: 20,
     },
     viewofbutton: {
-        flex: 1,
+        flex: 1.25,
         alignItems: 'flex-end',
-        // backgroundColor: 'green',
         marginRight: 10,
+        backgroundColor: 'ghostwhite'
     },
     button: {
         borderWidth: 2,
-        // margin: 20,
         paddingLeft: 20,
         paddingRight: 20,
         paddingBottom: 10,
         paddingTop: 10,
         borderRadius: 10,
-        fontWeight: 'bold'
-        // backgroundColor: 'yellow'
+    },
+    text_butt: {
+        fontWeight: 'bold',
+        fontSize: 20,
+        color: "#009688"
     }
 })
