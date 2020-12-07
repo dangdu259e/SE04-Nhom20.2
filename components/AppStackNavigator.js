@@ -9,10 +9,12 @@ import { createStackNavigator } from 'react-navigation-stack';
 const AppNavigator= createStackNavigator({
     //screen
     Splash:{
-        screen: Splash
+        screen: Splash,
+        navigationOptions: { headerShown: false}
     },
     Login:{
-        screen: Login
+        screen: Login,
+        navigationOptions: { headerShown: false}
     }
 },{
     //setting

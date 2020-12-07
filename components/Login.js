@@ -36,9 +36,9 @@ class Login extends Component{
   render(){
     const Devider = (props) =>{
       return <View {...props}>
-        <View style={styles.line}></View>
+        <View style={styles.line}/>
         <Text style={styles.textOr}>OR</Text>
-        <View style={styles.line}></View>
+        <View style={styles.line}/>
       </View>
     }
     return(
@@ -92,18 +92,23 @@ class Login extends Component{
 }}
 const AppNavigator= createStackNavigator(
     {
-      Home: Login,
-      Profile: ListOfCats
+      Home: {
+        screen: Login,
+        navigationOptions: { headerShown: false}
+      },
+      Profile: {
+        screen: ListOfCats,
+        navigationOptions: { headerShown: false}
+      }
     },
     {
       initialRouteName: "Home",
-      headerMode:'none',
     }
 );
 const AppContainer = createAppContainer(AppNavigator);
 export default class App extends React.Component{
   render(){
-    return <AppContainer></AppContainer>
+    return <AppContainer/>
   }
 }
 

@@ -14,7 +14,12 @@ class Cat extends Component {
     }
     render() {
         return (
-            <View style={{backgroundColor: 'red'}} >
+            <View style={{backgroundColor: 'ghostwhite'}} >
+                <View>
+                    <Text style={styles.text_header}>
+                        The most loved cats
+                    </Text>
+                </View>
                 <FlatList
                     data={flatListData}
                     renderItem={({item}) =>
@@ -47,15 +52,21 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        // marginTop: 50,   // khoảng cách so với lề top
         borderWidth: 2,   // độ dày của viền
         borderRadius: 10, // độ tròn của viền
-        // padding: 20, // paddingVertical: khoảng cách chữ so với trục ox
+        // paddingVertical: khoảng cách chữ so với trục ox
         borderColor: 'black',
-        backgroundColor: '#009688',
+        backgroundColor: 'lavender',
         justifyContent: 'space-between',
         margin: 10,
         marginBottom: 0
+    },
+    text_header: {
+        paddingLeft: 20,
+        fontSize: 30,
+        fontWeight: "bold",
+        fontStyle: "italic",
+        color: 'lightcoral'
     },
     image: {
         padding: 150,
@@ -82,6 +93,7 @@ const styles = StyleSheet.create({
         padding: 10,
         fontSize: 20,
         fontWeight: "bold",
+        color: "#009688"
     },
     textTouch: {
         padding:10,
