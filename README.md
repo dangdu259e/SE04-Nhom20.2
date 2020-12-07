@@ -7,12 +7,12 @@
 3. [Cấu trúc dự án](##cautruduan)
 
 ## Giới thiệu
-###Công nghệ phần mềm - SE04-Nhom20.2. 
-####Trường: Đại Học Khoa học Tự Nhiên - Đại học Quốc Gia Hà Nội.
-####Khoa: Toán - Cơ - Tin học.
-###Người hướng dẫn
-####Thầy: [Bùi Sỹ Nguyên](https://www.facebook.com/nguyenbs).
-####Anh: [Nguyễn Quan Tuấn](https://www.facebook.com/nguyenquan.tuan.5).
+### Công nghệ phần mềm - SE04-Nhom20.2. 
+#### Trường: Đại Học Khoa học Tự Nhiên - Đại học Quốc Gia Hà Nội.
+#### Khoa: Toán - Cơ - Tin học.
+### Người hướng dẫn
+#### Thầy: [Bùi Sỹ Nguyên](https://www.facebook.com/nguyenbs).
+#### Anh: [Nguyễn Quan Tuấn](https://www.facebook.com/nguyenquan.tuan.5).
 
 ## **Thành viên nhóm**
 1) [Đặng Trung Du](https://www.facebook.com/t.dudang/)
