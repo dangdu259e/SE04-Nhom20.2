@@ -13,7 +13,7 @@ def loginuser():
     # print(email)
     password = request.args.get('password', None)
     result = checkLogin.check_Login(email, password)
-    return result
+    return 'success'
 
 def insertuser():
     # email = request.args.get('email', None)
