@@ -11,6 +11,8 @@
 
 //https://vntalking.com/react-native-phan-biet-props-va-state-don-gian-de-hieu.html
 import React,{Component} from 'react';
+import { NetworkInfo } from "react-native-network-info";
+
 import {
   StyleSheet,
   View,
@@ -29,6 +31,7 @@ import ListOfCats from "./ListOfCats";
 import TabNav from "./TabNav";
 
 const FBLoginButton = require('./FBLoginButton');
+const ipv4Address = await NetworkInfo.getIPV4Address();
 
 class Login extends Component{
   static navigationOptions= {
@@ -38,7 +41,7 @@ class Login extends Component{
     email : '',
     password : '',
     status: '',
-    baseUrl: 'http://127.0.0.1:5000/login/user/'
+    baseUrl: ipv4Address + ':5000/login/user/'
   }
   handleEmail= (text)=>{
     this.setState({email: text})
@@ -53,7 +56,7 @@ class Login extends Component{
     formData.append('email', email);
     formData.append('password', password);
 
-    let res = await fetch('http://192.168.1.7:5000/login/user/',{
+    let res = await fetch(this.state.baseUrl,{
       method: 'POST',
       body: formData,})
         .then((response) => response.json())
