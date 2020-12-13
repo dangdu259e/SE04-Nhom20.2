@@ -18,7 +18,8 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  TouchableWithoutFeedback, Keyboard
+  TouchableWithoutFeedback, Keyboard,
+  Alert,
 } from 'react-native';
 import {COLOR_DARK_RED, COLOR_GRAY, COLOR_LIGHT_RED} from './myColor'
 import {  createAppContainer } from 'react-navigation';
@@ -35,7 +36,9 @@ class Login extends Component{
   }
   state= {
     email : '',
-    password : ''
+    password : '',
+    status: '',
+    baseUrl: 'http://127.0.0.1:5000/login/user/'
   }
   handleEmail= (text)=>{
     this.setState({email: text})
@@ -45,10 +48,34 @@ class Login extends Component{
     this.setState({password: text})
 
   }
-  login = (email, password) => {
+  login = async (email, password) => {
+    let formData = new FormData();
+    formData.append('email', email);
+    formData.append('password', password);
+
+    let res = await fetch('http://192.168.1.7:5000/login/user/',{
+      method: 'POST',
+      body: formData,})
+        .then((response) => response.json())
+        //Then with the data from the response in JSON...
+        .then((data) => {
+          console.log('Success:', data);
+        })
+        //Then with the error genereted...
+        .catch((error) => {
+          console.error('Error:', error);
+        });
     // () => this.props.navigation.navigate('Profile')
-    alert('email: ' + email + ' password: ' + password)
+    // alert('email: ' + this.state.email + ' password: ' + this.state.password)
+    // let responseJson = await res.json();
+    // alert("here")
+    // if (responseJson.get('Status') == 'Success') {
+    //   alert('Successful');
+    // }else{
+    //   alert("Invalid")
+    // }
   }
+
   render(){
     const Devider = (props) =>{
       return <View {...props}>

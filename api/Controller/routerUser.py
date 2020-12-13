@@ -8,10 +8,12 @@ conn = Connection.ConnectionDB()
 
 
 def loginuser():
-    email = request.args.get('email', None)
-    # print(request)
-    # print(email)
-    password = request.args.get('password', None)
+    # email = request.args.get('email', None)
+    # # print(request)
+    # # print(email)
+    # password = request.args.get('password', None)
+    email = request.form.get('email')
+    password = request.form.get('password')
     result = checkLogin.check_Login(email, password)
     if(result.get('Status')=='Success'):
         print(result)
