@@ -33,6 +33,22 @@ class Login extends Component{
   static navigationOptions= {
     headerShown: false,
   }
+  state= {
+    email : '',
+    password : ''
+  }
+  handleEmail= (text)=>{
+    this.setState({email: text})
+
+  }
+  handlePassword= (text)=>{
+    this.setState({password: text})
+
+  }
+  login = (email, password) => {
+    // () => this.props.navigation.navigate('Profile')
+    alert('email: ' + email + ' password: ' + password)
+  }
   render(){
     const Devider = (props) =>{
       return <View {...props}>
@@ -59,7 +75,8 @@ class Login extends Component{
                       style={styles.textInput}
                       textContentType={'emailAddress'}
                       keyboardType={'email-address'}
-                      placeholder={"Enter your email"}>
+                      placeholder={"Enter your email"}
+                      onChangeText={this.handleEmail}>
                   </TextInput>
               </View>
 
@@ -68,13 +85,18 @@ class Login extends Component{
                     style={styles.textInput}
                     secureTextEntry={true}
                     placeholder={"Enter your password"}
+                    onChangeText={this.handlePassword}
                 />
               </View>
 
               <View>
                 <TouchableOpacity style={styles.loginButon}
                     title="Login"
-                    onPress={() => this.props.navigation.navigate('Profile')}>
+                    // onPress={() => this.props.navigation.navigate('Profile')}
+                    onPress={
+                      ()=> this.login(this.state.email, this.state.password)
+                    }
+                >
                   <Text style={styles.loginButtonTitle}>Login</Text>
                 </TouchableOpacity>
               </View>
