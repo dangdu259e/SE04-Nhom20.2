@@ -1,5 +1,5 @@
 # SE04-Nhom20.2   React Native App
-(app thương mại điện tử đặt mua thú cưng)
+(app thương mại điện tử đặt mua mèo)
 
 ## Mục lục
 1. [Giới thiệu](##gioithieu)
