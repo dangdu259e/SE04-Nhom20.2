@@ -1,11 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for, session, jsonify
+from flask import request, jsonify
 import secrets
-from Services import Connection, checkLogin, insertUser
+from app.Services import Connection, insertUser, ServiceUser
 
 secret = secrets.token_urlsafe(32)
-app = Flask(__name__)
 conn = Connection.ConnectionDB()
-
 
 def loginuser():
     # email = request.args.get('email', None)
@@ -14,7 +12,7 @@ def loginuser():
     # password = request.args.get('password', None)
     email = request.form.get('email')
     password = request.form.get('password')
-    result = checkLogin.check_Login(email, password)
+    result = ServiceUser.check_Login(email, password)
     if(result.get('Status')=='Success'):
         print(result)
         return jsonify(result), 200

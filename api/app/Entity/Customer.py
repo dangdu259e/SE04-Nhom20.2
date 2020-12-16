@@ -1,5 +1,6 @@
-from Entity.User import User
-from Services import Connection
+from app.Entity.User import User
+from app.Services import Connection
+
 
 class Customer(User):
     def show_info(self):

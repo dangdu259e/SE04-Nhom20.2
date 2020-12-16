@@ -1,18 +1,17 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import render_template, request, session
 # from flask_session import Session
-from Controller import routerUser
-from Services import connectExample
-from Services import Connection
-import templates
+# from Controller import routerUser
+from app.Services import Connection, connectExample
 import secrets
+from app import app
 
 secret = secrets.token_urlsafe(32)
 
-app = Flask(__name__)
+# app = Flask(__name__)
 app.secret_key = secret
 
-app.add_url_rule('/login/user/', view_func=routerUser.loginuser, methods=['POST'])
-app.add_url_rule('/insert/user/', methods=['POST'], view_func=routerUser.insertuser)
+# app.add_url_rule('/login/user/', view_func=routerUser.loginuser, methods=['POST'])
+# app.add_url_rule('/insert/user/', methods=['POST'], view_func=routerUser.insertuser)
 
 
 @app.route('/get')
@@ -88,4 +87,5 @@ def signUp():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(host='0.0.0.0', port=5000, debug=True)
+    # app.run()

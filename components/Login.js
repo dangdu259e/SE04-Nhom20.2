@@ -31,7 +31,7 @@ import ListOfCats from "./ListOfCats";
 import TabNav from "./TabNav";
 
 const FBLoginButton = require('./FBLoginButton');
-const ipv4Address = await NetworkInfo.getIPV4Address();
+// const ipv4Address = await NetworkInfo.getIPV4Address();
 
 class Login extends Component{
   static navigationOptions= {
@@ -41,7 +41,8 @@ class Login extends Component{
     email : '',
     password : '',
     status: '',
-    baseUrl: ipv4Address + ':5000/login/user/'
+    // baseUrl: ipv4Address + ':5000/api/login/user/'
+    baseUrl: '192.168.1.7' + ':5000/api/login/user/'
   }
   handleEmail= (text)=>{
     this.setState({email: text})
@@ -63,6 +64,9 @@ class Login extends Component{
         //Then with the data from the response in JSON...
         .then((data) => {
           console.log('Success:', data);
+          // this.setState({
+          //   status: data.get("Status")
+          // })
         })
         //Then with the error genereted...
         .catch((error) => {
@@ -124,7 +128,10 @@ class Login extends Component{
                     title="Login"
                     // onPress={() => this.props.navigation.navigate('Profile')}
                     onPress={
-                      ()=> this.login(this.state.email, this.state.password)
+                      // () => this.login(this.state.email, this.state.password)
+                      // () =>alert("xin chao "+ this.state.email +"----"+this.state.password)
+                      () =>alert(this.state.status)
+                      // ()=> this.login(this.state.email, this.state.password)
                     }
                 >
                   <Text style={styles.loginButtonTitle}>Login</Text>

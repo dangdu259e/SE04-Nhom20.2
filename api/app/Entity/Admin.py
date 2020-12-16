@@ -1,4 +1,4 @@
-from Entity.User import User
+from app.Entity.User import User
 
 
 class Admin(User):

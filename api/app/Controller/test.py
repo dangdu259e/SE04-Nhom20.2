@@ -1,5 +1,3 @@
-from Entity import User
-
 # idcustomer = 1
 # username = "dangtrungdu"
 # password = "du1234"
@@ -12,3 +10,4 @@ print(type(d1))
 print(type(d2))
 d1.update(d2)
 print(d1)
+

@@ -7,7 +7,7 @@ def runn():
     connection = pymysql.connect(host='localhost',
                                  user='root',
                                  password='1234',
-                                 db='mydb',
+                                 db='se04',
                                  charset='utf8mb4',
                                  cursorclass=pymysql.cursors.DictCursor)
 
