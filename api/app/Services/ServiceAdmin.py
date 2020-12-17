@@ -82,4 +82,4 @@ def get_all_admin():
             return temp
     finally:
         connection.close()
-
+get_all_admin()

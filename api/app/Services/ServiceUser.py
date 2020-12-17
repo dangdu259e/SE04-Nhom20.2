@@ -60,9 +60,9 @@ def insert_user(email, password):
                     dic = {
                         'Status': 'Success',
                         'Message': "Account successfully created",
-                        'id': result[0].get('id'),
+                        'id': str(result[0].get('id')),
                         'password': result[0].get('password'),
-                        "username": result[0].get('username'),
+                        "username": str(result[0].get('username')),
                     }
                     result = OrderedDict(dic)
                     return result
@@ -83,4 +83,3 @@ def get_all_user():
     finally:
         connection.close()
 
-get_all_user()

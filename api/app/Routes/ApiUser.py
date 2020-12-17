@@ -37,6 +37,7 @@ def getalluser():
     dic = {}
     list = ServiceUser.get_all_user()
     for i in range(0, len(list)):
+        list[i]['id'] = str(list[i].get('id'))
         temp = {i: list[i]}
         dic.update(temp)
     return dic
