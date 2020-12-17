@@ -1,0 +1,47 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+body{
+  background: -webkit-linear-gradient(left, #25c481, #25b7c4);
+  background: linear-gradient(to right, #25c481, #25b7c4);
+  font-family: 'Roboto', sans-serif;
+}
+section{
+  margin: 50px;
+}
+.container{
+    font-family: 'Times New Roman', Times, serif;
+    color: white;
+    position: absolute;
+    left: 50%; 
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+.row{
+    border-radius: 20%;
+}
+.login-page{
+    margin-top: 40px;
+    margin-bottom: 80px;  
+    border-color: #777777;
+    border-radius: 50%;
+}
+
+.h1, h1{
+    text-align: center;
+    margin-bottom: 70px;
+}
+input.form-control{
+    background-color: rgba(207, 207, 207, 0.80);
+}
+button.btn-primary{
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+}
+.form-check{
+    text-align: right;
+}
+a.forgot-pass{
+    display: block;
+    margin-top: 10px;
+
+}
