@@ -11,6 +11,8 @@
 
 //https://vntalking.com/react-native-phan-biet-props-va-state-don-gian-de-hieu.html
 import React,{Component} from 'react';
+import { NetworkInfo } from "react-native-network-info";
+
 import {
   StyleSheet,
   View,
@@ -18,7 +20,8 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  TouchableWithoutFeedback, Keyboard
+  TouchableWithoutFeedback, Keyboard,
+  Alert,
 } from 'react-native';
 import {COLOR_DARK_RED, COLOR_GRAY, COLOR_LIGHT_RED} from './myColor'
 import {  createAppContainer } from 'react-navigation';
@@ -28,11 +31,54 @@ import ListOfCats from "./ListOfCats";
 import TabNav from "./TabNav";
 
 const FBLoginButton = require('./FBLoginButton');
+const ipv4Address = await NetworkInfo.getIPV4Address();
 
 class Login extends Component{
   static navigationOptions= {
     headerShown: false,
   }
+  state= {
+    email : '',
+    password : '',
+    status: '',
+    baseUrl: ipv4Address + ':5000/login/user/'
+  }
+  handleEmail= (text)=>{
+    this.setState({email: text})
+
+  }
+  handlePassword= (text)=>{
+    this.setState({password: text})
+
+  }
+  login = async (email, password) => {
+    let formData = new FormData();
+    formData.append('email', email);
+    formData.append('password', password);
+
+    let res = await fetch(this.state.baseUrl,{
+      method: 'POST',
+      body: formData,})
+        .then((response) => response.json())
+        //Then with the data from the response in JSON...
+        .then((data) => {
+          console.log('Success:', data);
+        })
+        //Then with the error genereted...
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    // () => this.props.navigation.navigate('Profile')
+    // alert('email: ' + this.state.email + ' password: ' + this.state.password)
+    // let responseJson = await res.json();
+    // alert("here")
+    // if (responseJson.get('Status') == 'Success') {
+    //   alert('Successful');
+    // }else{
+    //   alert("Invalid")
+    // }
+  }
+
   render(){
     const Devider = (props) =>{
       return <View {...props}>
@@ -59,7 +105,8 @@ class Login extends Component{
                       style={styles.textInput}
                       textContentType={'emailAddress'}
                       keyboardType={'email-address'}
-                      placeholder={"Enter your email"}>
+                      placeholder={"Enter your email"}
+                      onChangeText={this.handleEmail}>
                   </TextInput>
               </View>
 
@@ -68,13 +115,18 @@ class Login extends Component{
                     style={styles.textInput}
                     secureTextEntry={true}
                     placeholder={"Enter your password"}
+                    onChangeText={this.handlePassword}
                 />
               </View>
 
               <View>
                 <TouchableOpacity style={styles.loginButon}
                     title="Login"
-                    onPress={() => this.props.navigation.navigate('Profile')}>
+                    // onPress={() => this.props.navigation.navigate('Profile')}
+                    onPress={
+                      ()=> this.login(this.state.email, this.state.password)
+                    }
+                >
                   <Text style={styles.loginButtonTitle}>Login</Text>
                 </TouchableOpacity>
               </View>

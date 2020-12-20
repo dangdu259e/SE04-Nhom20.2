@@ -14,10 +14,17 @@ def check_Login(email, password):
             cursor.execute(sql, (email, password))
             data = cursor.fetchall()
             if (len(data) > 0):
-                return 'Success'
+                temp = data[0]
+                result = {"Status": "Success"}
+                result.update(temp)
+                return result
                 # return url_for('/get/homepage', methods=['GET'])
             else:
-                return 'Invalid'
+                result = {"Status": "Invalid"}
+                user = {"username": email, 'password': password}
+                result.update(user)
+                # print(result)
+                return result
         ocnnection.commit()
     finally:
         connection.close()

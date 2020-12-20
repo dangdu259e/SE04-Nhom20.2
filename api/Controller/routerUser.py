@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import secrets
 from Services import Connection, checkLogin, insertUser
 
@@ -8,12 +8,19 @@ conn = Connection.ConnectionDB()
 
 
 def loginuser():
-    email = request.args.get('email', None)
-    # print(request)
-    # print(email)
-    password = request.args.get('password', None)
+    # email = request.args.get('email', None)
+    # # print(request)
+    # # print(email)
+    # password = request.args.get('password', None)
+    email = request.form.get('email')
+    password = request.form.get('password')
     result = checkLogin.check_Login(email, password)
-    return 'success'
+    if(result.get('Status')=='Success'):
+        print(result)
+        return jsonify(result), 200
+    else:
+        print(result)
+        return jsonify(result), 404
 
 def insertuser():
     # email = request.args.get('email', None)
@@ -21,4 +28,4 @@ def insertuser():
     email = request.form.get('email')
     password = request.form.get('password')
     result = insertUser.insert_user(email, password)
-    return result
+    return result, 201
