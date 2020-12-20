@@ -6,12 +6,15 @@ from ..Controller import DictToAccount
 url = 'http://127.0.0.1:5000/'
 
 
-@app.route('/getallacount', methods=['GET'])
-def getallacountadmin():
-    urlsend = url + 'api/get_all_admin'
-    response = requests.get(urlsend)
-    responseData = response.json()
-    listdata = DictToAccount.dictoListAccount(responseData)
-    lendata = len(responseData)
-    return render_template('all_account.html', lendata=lendata, data=listdata)
-
+@app.route('/getallaccount', methods=['GET'])
+def getallaccount():
+    statuslogin = session.get('statuslogin')
+    if(statuslogin == "Success"):
+        urlsend = url + 'api/get_all_user'
+        response = requests.get(urlsend)
+        responseData = response.json()
+        listdata = DictToAccount.dictoListAccount(responseData)
+        lendata = len(responseData)
+        return render_template('all_account.html', lendata=lendata, data=listdata)
+    else:
+        return redirect(url_for('welcome'))

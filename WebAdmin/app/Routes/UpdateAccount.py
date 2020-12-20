@@ -25,12 +25,12 @@ def updateaccount(id, username, password, name, add, phone):
             'id': acc.getId(),
             'email': acc.getUsername(),
             'password': acc.getPassword(),
-            'name' : acc.getName(),
+            'name': acc.getName(),
             'add': acc.getAdd(),
             'phone': acc.getPhone(),
         }
         response = requests.post(urlsend, data=datas)
-        if(response=="success"):
+        if (response == "success"):
             return 'success'
         else:
             return 'invalid'
