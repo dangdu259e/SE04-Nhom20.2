@@ -18,7 +18,7 @@ def runn():
         with connection.cursor() as cursor:
 
             # SQL
-            sql = "SELECT * FROM khachhang"
+            sql = "SELECT * FROM admin"
 
             # Thực thi câu lệnh truy vấn (Execute Query).
             cursor.execute(sql)
@@ -40,3 +40,4 @@ def runn():
     finally:
         # Đóng kết nối (Close connection).
         connection.close()
+
