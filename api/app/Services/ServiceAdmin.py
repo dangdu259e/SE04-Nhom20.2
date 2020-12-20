@@ -27,7 +27,7 @@ def check_Login(email, password):
                 result.update(user)
                 # print(result)
                 return result
-        ocnnection.commit()
+        connection.commit()
     finally:
         connection.close()
 
@@ -82,4 +82,3 @@ def get_all_admin():
             return temp
     finally:
         connection.close()
-get_all_admin()
