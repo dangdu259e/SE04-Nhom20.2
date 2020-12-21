@@ -29,6 +29,6 @@
 
  
 ### **Backend flask**
-https://github.com/dangdu259e/flaskbackend
+
 
 ### **Database MySQL**
