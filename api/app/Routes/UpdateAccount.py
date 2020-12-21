@@ -12,7 +12,6 @@ def updateaccount():
     phone = request.form.get('phone')
     result = ServiceUpdateAccount.update_account(id, email, password, name, add, phone)
     if(result=='Success'):
-        print(result)
         return 'Success', 200
     else:
         return 'Invalid', 404

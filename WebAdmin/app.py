@@ -1,4 +1,4 @@
-from flask import render_template, request, session
+from flask import render_template, request, session, redirect, url_for
 # from flask_session import Session
 # from Controller import routerUser
 import secrets
@@ -17,12 +17,9 @@ def welcome():
     return render_template('welcome.html')
 
 
-
-
-
-@app.route('/success/<name>/<password>')
-def success(name, password):
-    return 'welcome %s' % password
+@app.route('/homeee')
+def control():
+    return redirect(url_for('welcome', id='1', username= 'dangtrungdu', password= '1234'))
 
 
 # @app.route('/save-post', methods=['POST', 'GET'])
@@ -79,4 +76,3 @@ def success(name, password):
 
 if __name__ == '__main__':
     app.run(host='127.0.0.2', port=5000)
-    # app.run()
