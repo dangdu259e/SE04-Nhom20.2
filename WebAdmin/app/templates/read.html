@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All User</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/stylePageAllUser.css') }}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+</head>
+<body>
+    <header class="menubar" style="font-size: 20px;">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#" style="font-size: 26px; color: #1e62d0">Cat Store</a>
+            </div>
+
+            <ul class="nav navbar-nav">
+{# link #}                <li><a href="#">Home</a></li>
+                <li class="active"><a href="#">All User</a></li>
+                <li><a href="#">Info Cat</a></li>
+                <li><a href="#">Store</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Support <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Email</a></li>
+                    <li><a href="#">Phone</a></li>
+                    <li><a href="#">Facebook</a></li>
+                </ul>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Account</a></li>
+{#                <li><a href="{{url_for('logoutAccount')}}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>#}
+            </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container-lgm">
+            <!--for demo wrap-->
+            <h1>All Cat Information</h1>
+
+            <div class="tbl-content" style=" height: 600px; overflow:auto;">
+              <table cellpadding="0" cellspacing="0" border="0" class="w3-table-all w3-hoverable">
+              <thead>
+                  <tr>
+
+                    <th>Cat</th>
+                    <th>Information</th>
+                    <th> ~~~~~~~~~ </th>
+
+                  </tr>
+                </thead>
+                <tbody width="100">
+                {% for line in posts %}
+                    <tr>
+
+                        <td style="width: 600px">
+                            <img style="height: 60%" src="{{ line.img }}"/>
+                        </td>
+                        <td style="max-width: 400px">
+                            <p><b>ID:</b> {{ line.id }} </p>
+                            <p><b>Name:</b> {{ line.name }} </p>
+                            <p><b>Gender:</b> {{ line.gender }} </p>
+                            <p><b>Origin:</b> {{ line.origin }} </p>
+                            <p><b>Type:</b> {{ line.type }} </p>
+                            <p><b>Price:</b> {{ line.price }} </p>
+                            <p><b>Features:</b> {{ line.features }} </p>
+                            <p><b>Quantity:</b> {{ line.quantity }} </p>
+                            <p style="max-width: 400px"><b>Guide: </b>{{ line.guide }} </p>
+                        </td>
+                        <td>
+                              <a class='btnupdate' href={{ url_for('go_update', id=line.id, name=line.name, gender=line.gender, origin=line.origin, type=line.type, price=line.price, features=line.features, quantity=line.quantity, img=line.img, guide=line.guide)}}>Update</a>
+
+                            <form action="/delete" method="POST" >
+{#                                <a class='btndelete' href={{ url_for('go_delete',  __METHOD_OVERRIDE__='POST', id=line.id)}}>Delete</a>#}
+                                <input type="hidden" name = 'id' value={{ line.id }}>
+                                <button type="submit" style="padding: 4px; background-color: red; color: white">Delete</button>
+                            </form>
+                        </td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+           <div>
+               <a href="{{ url_for('create') }}">abc</a>
+           </div>
+            <!-- follow me template -->
+        <div class="labelbot">
+            <label>&Omega;  Web admin quản lý dữ liệu  &Omega;</label>
+        </div>
+    </div>
+</body>
+</html>
+{#id=line.id, name=line.name, gender=line.gender, origin=line.origin, type=line.type, price=line.price, features=line.features, quantity=line.quantity, img=line.img, guide=line.guide)#}

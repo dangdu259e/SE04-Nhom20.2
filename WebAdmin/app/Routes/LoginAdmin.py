@@ -11,7 +11,7 @@ def login():
 
 # Lấy dữ liệu từ trang đăng nhập và xử lý
 @app.route('/login/admin/', methods=['POST'])
-def loginuser():
+def loginadmin():
     session['statuslogin'] = 'Invalid'
     email = request.form.get('exampleInputEmail1')
     password = request.form.get('exampleInputPassword1')

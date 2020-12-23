@@ -3,30 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>All User</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/stylePageAllUser.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/stylePageAllUser.css') }}" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script>
-        $(window).on("load resize ", function() {
-            var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
-            $('.tbl-header').css({'padding-right':scrollWidth});
-        }).resize();
-    </script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 </head>
 <body>
     <header class="menubar" style="font-size: 20px;">
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#" style="font-size: 26px;">Cat Store</a>
+                <a class="navbar-brand" href="#" style="font-size: 26px; color: #1e62d0">Cat Store</a>
             </div>
 
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">All User</a></li>
+                <li><a href="{{url_for('homepage')}}">Home</a></li>
+                <li class="active"><a href="#">All User</a></li>
                 <li><a href="#">Info Cat</a></li>
-                <li><a href="./store.html">Store</a></li>
+                <li><a href="#">Store</a></li>
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Support <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="#">Email</a></li>
@@ -38,18 +34,19 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> Account</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                <li><a href="{{url_for('logoutAccount')}}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
             </ul>
             </div>
         </nav>
     </header>
     
-    <div class="container-lg">
+    <div class="container-lgm">
             <!--for demo wrap-->
             <h1>All User Account</h1>
-            <div class="tbl-header">
-              <table cellpadding="0" cellspacing="0" border="0">
-                <thead>
+
+            <div class="tbl-content" style=" height: 600px; overflow:auto;">
+              <table cellpadding="0" cellspacing="0" border="0" class="w3-table-all w3-hoverable">
+              <thead>
                   <tr>
                     <th>ID</th>
                     <th>Username</th>
@@ -57,14 +54,10 @@
                     <th>Name</th>
                     <th>Add</th>
                     <th>Phone</th>
-                    <th></th>
+                    <th> ~~~~~~~~~ </th>
                   </tr>
                 </thead>
-              </table>
-            </div>
-            <div class="tbl-content">
-              <table cellpadding="0" cellspacing="0" border="0">
-                <tbody>
+                <tbody width="100">
                 {% for line in data %}
                     <tr>
                         <td>{{ line.id }}</td>
@@ -74,8 +67,8 @@
                         <td>{{ line.add }}</td>
                         <td>{{ line.phone }}</td>
                         <td>
-{#                            <a href={{ url_for('updateaccount', id = line.id, username = line.username, password = line.password, name = line.name, add = line.add, phone= line.phone) }}>Update</a>#}
-{#                            <a href="#">Delete</a>#}
+                            <a class='btnupdate' href={{ url_for('updateaccount', id = line.id, username=line.username, password=line.password, name=line.name, add=line.add,  phone=line.phone ) }}>Update</a>
+                            <a class='btndelete' href={{ url_for('deleteAccount',id = line.id, username=line.username, password=line.password, name=line.name, add=line.add,  phone=line.phone ) }}>Delete</a>
                         </td>
                     </tr>
                 {% endfor %}
