@@ -8,9 +8,29 @@ import CatDetails from './CatDetails'
 import flatListData from './AllOfCatsDatas'
 import TFile from './TFile';
 
+const url = 'http://192.168.1.105:5000/get_all';
+
 class Cat extends Component {
+    constructor() {
+        super();
+        this.state={
+            data: []
+        }
+    }
     static navigationOptions= {
         headerShown: false,
+    }
+    componentDidMount() {
+        fetch('http://192.168.1.105:5000/get_all')
+            .then((response) => response.json())
+            .then((json) => {
+                this.setState({
+                    data: json
+                })
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
     render() {
         return (
@@ -21,7 +41,8 @@ class Cat extends Component {
                     </Text>
                 </View>
                 <FlatList
-                    data={flatListData}
+                    data={this.state.data}
+                    keyExtractor={item => item.id}
                     renderItem={({item}) =>
                         <View style={styles.container}>
                             {/*<Image style={{padding:100}} source={{uri: item.img}}/>*/}
@@ -30,7 +51,7 @@ class Cat extends Component {
                                 <View style={styles.info}>
                                     <View style={styles.left}>
                                         <Image style={styles.imageLeft} source={{uri: item.img}}/>
-                                        <Text style={styles.min_text}>{item.key}</Text>
+                                        <Text style={styles.min_text}>{item.name}</Text>
                                     </View>
                                     <View>
                                         <TouchableOpacity style={styles.textTouch}
