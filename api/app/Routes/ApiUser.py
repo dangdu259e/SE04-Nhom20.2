@@ -2,6 +2,7 @@ from app import app
 from flask import request, jsonify
 from ..Services import ServiceUser
 from ..Services import ServiceDeleteAccount
+
 @app.route('/api/login/user/', methods=['POST'])
 def loginuser():
     # email = request.args.get('email', None)

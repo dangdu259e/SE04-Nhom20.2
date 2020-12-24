@@ -1,6 +1,6 @@
 from flask import request, jsonify
 import secrets
-from app.Services import Connection, insertUser, ServiceUser
+from app.Services import Connection, ServiceUser
 
 secret = secrets.token_urlsafe(32)
 conn = Connection.ConnectionDB()

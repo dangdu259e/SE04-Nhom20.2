@@ -1,4 +1,4 @@
-from app_thuna.service import db_connection
+from ..Services import db_connection
 
 
 def get_all():
