@@ -4,6 +4,7 @@ from collections import OrderedDict
 
 secret = secrets.token_urlsafe(32)
 
+
 def check_Login(email, password):
     # connect DB MYSQL
     connection = Connection.ConnectionDB()
@@ -30,6 +31,46 @@ def check_Login(email, password):
         connection.commit()
     finally:
         connection.close()
+
+
+def create_user(email, password, name, add, phone):
+    # connect DB MYSQL
+    connection = Connection.ConnectionDB()
+    # Query and check
+    try:
+        with connection.cursor() as cursor:
+            sql = "SELECT `username`, `password` FROM `user` WHERE `username`=%s"
+            cursor.execute(sql, (email,))
+            temp = cursor.fetchall()
+            if (len(temp) > 0):
+                dic = {
+                    'Status': 'Error',
+                    "Message": "Email is available !, please choose another email or reset password"
+                }
+                result = OrderedDict(dic)
+                return result
+            else:
+                with connection.cursor() as cursor:
+                    sql = "INSERT INTO `user` (`username`, `password`, `name`, `add`,`phone`) VALUES (%s, %s,%s,%s,%s)"
+                    cursor.execute(sql, (email, password, name, add, phone))
+                connection.commit()
+
+                with connection.cursor() as cursor:
+                    sql = "SELECT * FROM `user` WHERE `username`=%s"
+                    cursor.execute(sql, (email,))
+                    result = cursor.fetchall()
+                    dic = {
+                        'Status': 'Success',
+                        'Message': "Account successfully created",
+                        'id': str(result[0].get('id')),
+                        'password': result[0].get('password'),
+                        "username": str(result[0].get('username')),
+                    }
+                    result = OrderedDict(dic)
+                    return result
+    finally:
+        connection.close()
+# create_user('email', 'password', 'name', 'add', 'phone')
 
 def insert_user(email, password):
     # connect DB MYSQL
@@ -69,6 +110,7 @@ def insert_user(email, password):
     finally:
         connection.close()
 
+
 def get_all_user():
     # connect DB MYSQL
     connection = Connection.ConnectionDB()
@@ -82,4 +124,3 @@ def get_all_user():
             return temp
     finally:
         connection.close()
-

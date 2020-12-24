@@ -6,4 +6,3 @@ from app.Routes.get_all_cat import *
 from app.Routes.update_one_cat import *
 from app.Routes.UpdateAccount import *
 
-

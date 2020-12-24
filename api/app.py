@@ -1,5 +1,4 @@
 from flask import render_template, request, session
-from app.Services import Connection
 import secrets
 from app import app
 secret = secrets.token_urlsafe(32)
