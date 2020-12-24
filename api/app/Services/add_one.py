@@ -2,8 +2,8 @@ import random
 
 from pymysql import DatabaseError
 
-from app_thuna.entity.cat import Cat
-from app_thuna.service import db_connection
+from app.Entity.cat import Cat
+from app.Services import db_connection
 
 
 def add_data(one):

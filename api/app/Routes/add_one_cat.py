@@ -1,8 +1,8 @@
 import json
 from flask import request
-from app_thuna import app
-from app_thuna.service import add_one
-from app_thuna.entity import cat
+from app import app
+from app.Services import add_one
+from app.Entity import cat
 
 
 @app.route('/add_one', methods=['POST'])

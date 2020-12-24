@@ -1,6 +1,6 @@
 import requests
 from flask import render_template, request, redirect, url_for
-from app_thuna import app
+from app import app
 
 
 @app.route('/go-create')

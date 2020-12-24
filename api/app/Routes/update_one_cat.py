@@ -1,6 +1,6 @@
 from flask import request
-from app_thuna import app
-from app_thuna.service import update_one
+from app import app
+from app.Services import update_one
 
 
 @app.route('/update-cat', methods=['POST'])

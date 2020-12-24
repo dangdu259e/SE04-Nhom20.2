@@ -1,11 +1,11 @@
 import requests
 from flask import render_template
 
-from app_thuna import app
+from app import app
 
 
-@app.route("/", methods=['GET'])
-def all():
+@app.route("/allCat", methods=['GET'])
+def allCat():
     url = 'http://127.0.0.1:5000/get_all'
     res = requests.get(url)
     data = res.json()

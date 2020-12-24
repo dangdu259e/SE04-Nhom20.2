@@ -1,6 +1,4 @@
-from app_thuna.service import db_connection
-
-
+from app.Services import db_connection
 def get_all():
     conn = db_connection.ConnectionDB()
     try:
@@ -8,7 +6,6 @@ def get_all():
             sql = "SELECT * FROM `cat`"
             cursor.execute(sql)
             data = cursor.fetchall()
-            print(data)
         conn.commit()
     finally:
         conn.close()

@@ -1,13 +1,13 @@
 import requests
 from flask import render_template, redirect, url_for, session, request
 
-from app_thuna import app
-from ..entity import Cat
+from app import app
+from ..Entity import Cat
 
 URL = 'http://127.0.0.1:5000/'
 
 
-@app.route("/go-update", methods=['GET'])
+@app.route("/go_update", methods=['GET'])
 def go_update():
     id = request.args.get('id')
     name = request.args.get('name')
@@ -54,6 +54,6 @@ def get_update():
     status = response.text
     print(status)
     if status == '200':
-        return redirect(url_for('all'))
+        return redirect(url_for('allCat'))
     else:
         return render_template('error.html')

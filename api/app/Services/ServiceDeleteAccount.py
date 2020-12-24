@@ -19,4 +19,4 @@ def delete_account(id, newemail, newpassword, newname, newadd, newphone):
     finally:
         connection.close()
 
-delete_account('20','nguyenvane@gmail.com','1234','user','NhaTrang','0913241134')
+# delete_account('20','nguyenvane@gmail.com','1234','user','NhaTrang','0913241134')

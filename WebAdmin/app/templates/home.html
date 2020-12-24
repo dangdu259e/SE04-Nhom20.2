@@ -19,13 +19,13 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
                 <li><a href="{{url_for('getallaccount')}}">All User</a></li>
-                <li><a href="#">Info Cat</a></li>
+                <li><a href="{{url_for('allCat')}}">Info Cat</a></li>
                 <li><a href="#">Store</a></li>
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Support <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="#">Email</a></li>
                     <li><a href="#">Phone</a></li>
-                    <li><a href="#">Facebook</a></li>
+                    <li><a href="https://www.facebook.com/t.dudang/">Facebook</a></li>
                 </ul>
                 </li>
             </ul>
@@ -42,7 +42,7 @@
         <h1>Hello Admin</h1>
         <ul>
             <li><a href="{{url_for('getallaccount')}}" class="myButton">User Account</a></li>
-            <li><a href="#" class="myButton">Infor Cat</a></li>
+            <li><a href="{{url_for('allCat')}}" class="myButton">Infor Cat</a></li>
             <li><a href="#" class="myButton">Store</a></li>
         </ul>
     </div>

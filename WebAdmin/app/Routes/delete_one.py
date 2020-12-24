@@ -1,6 +1,6 @@
 import requests
 from flask import render_template, request, redirect, url_for
-from app_thuna import app
+from app import app
 
 
 @app.route("/go-delete", methods=['GET'])
@@ -25,6 +25,6 @@ def go_delete():
     response = requests.post(url, data=data)
     status = response.text
     if status == '200':
-        return redirect(url_for('all'))
+        return redirect(url_for('allCat'))
     else:
         return render_template('error.html')

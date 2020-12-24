@@ -60,17 +60,19 @@ class Login extends Component{
     let res = await fetch(this.state.baseUrl,{
       method: 'POST',
       body: formData,})
-        .then((response) => response.json())
+        // .then((response) => response.json())
+        .then(response => {
+          console.log("done")
+        })
         //Then with the data from the response in JSON...
-        .then((data) => {
-          console.log('Success:', data);
+        // .then((data) => {
+        //   console.log('Success:', data);
           // this.setState({
           //   status: data.get("Status")
           // })
-        })
         //Then with the error genereted...
         .catch((error) => {
-          console.error('Error:', error);
+          console.error('Error: ', error);
         });
     // () => this.props.navigation.navigate('Profile')
     // alert('email: ' + this.state.email + ' password: ' + this.state.password)

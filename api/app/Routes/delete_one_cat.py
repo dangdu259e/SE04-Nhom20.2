@@ -1,6 +1,6 @@
 from flask import request
-from app_thuna import app
-from app_thuna.service import delete_one
+from app import app
+from app.Services import delete_one
 
 
 @app.route('/delete-cat', methods=['POST'])

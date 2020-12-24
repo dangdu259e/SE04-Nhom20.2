@@ -20,12 +20,10 @@ def check_Login(email, password):
                 result = {"Status": "Success"}
                 result.update(temp)
                 return result
-                # return url_for('/get/homepage', methods=['GET'])
             else:
                 result = {"Status": "Invalid"}
                 user = {"username": email, 'password': password}
                 result.update(user)
-                # print(result)
                 return result
         connection.commit()
     finally:
