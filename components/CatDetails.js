@@ -7,20 +7,29 @@
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import flatListData from './AllOfCatsDatas'
 import Slider from './Slider';
-import Data from './InfoOfCatDatas'
 
+let a = []
 class Cat extends React.Component{
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            num:0
+            num:0,
+            obj: [],
+            arr: {}
         }
     }
     // static navigationOptions= {
     //     headerShown: false,
     // }
+    componentDidMount() {
+        const data = this.props.navigation.getParam('data');
+        a = this.state.obj.concat(data)
+        this.setState({
+            arr: data,
+            obj: a
+        })
+    }
 
     click() {
         this.setState({
@@ -40,21 +49,22 @@ class Cat extends React.Component{
                 </View>
 
                 {/*View of image*/}
-                <Slider flatListData={Data}/>
+                {/*<Slider flatListData={Data}/>*/}
+                <Slider flatListData={this.state.obj}/>
 
                 {/*View of info*/}
                 <View style={{flex: 7}}>
                     <View style={styles.viewcost}>
-                        <Text style={styles.cost}>GIÁ BÁN:  </Text>
+                        <Text style={styles.cost}>GIÁ BÁN: {this.state.arr.price} </Text>
                     </View>
 
                     {/*view for details: name, kind of cat*/}
                     <View style={styles.textBox}>
-                        <Text style={styles.textInBox}>Tên:</Text>
-                        <Text style={styles.textInBox}>Giống:</Text>
-                        <Text style={styles.textInBox}>Nguồn gốc:</Text>
-                        <Text style={styles.textInBox}>Đặc điểm:</Text>
-                        <Text style={styles.textInBox}>Hướng dẫn nuôi:</Text>
+                        <Text style={styles.textInBox}>Tên: {this.state.arr.name}</Text>
+                        <Text style={styles.textInBox}>Giống: {this.state.arr.gender}</Text>
+                        <Text style={styles.textInBox}>Nguồn gốc: {this.state.arr.origin}</Text>
+                        <Text style={styles.textInBox}>Đặc điểm: {this.state.arr.features}</Text>
+                        <Text style={styles.textInBox}>Hướng dẫn nuôi: {this.state.arr.guide}</Text>
                     </View>
                 </View>
                 {/*view for button buy*/}
