@@ -12,7 +12,6 @@
 //https://vntalking.com/react-native-phan-biet-props-va-state-don-gian-de-hieu.html
 import React,{Component} from 'react';
 import { NetworkInfo } from "react-native-network-info";
-
 import {
   StyleSheet,
   View,
@@ -20,71 +19,59 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  TouchableWithoutFeedback, Keyboard,
-  Alert,
+  TouchableWithoutFeedback, Keyboard, Alert
 } from 'react-native';
 import {COLOR_DARK_RED, COLOR_GRAY, COLOR_LIGHT_RED} from './myColor'
 import {  createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack'
-
 import ListOfCats from "./ListOfCats";
 import TabNav from "./TabNav";
 
 const FBLoginButton = require('./FBLoginButton');
-// const ipv4Address = await NetworkInfo.getIPV4Address();
+let formdata = new FormData();
+
 
 class Login extends Component{
   static navigationOptions= {
     headerShown: false,
   }
   state= {
-    email : '',
-    password : '',
-    status: '',
-    // baseUrl: ipv4Address + ':5000/api/login/user/'
-    baseUrl: '192.168.1.7' + ':5000/api/login/user/'
+    email:'',
+    password: '',
+    baseUrl: 'http://192.168.1.10'+':5000/api/login/user/',
   }
-  handleEmail= (text)=>{
+  handleEmail=(text)=>{
     this.setState({email: text})
 
   }
-  handlePassword= (text)=>{
+  handlePassword=(text)=>{
     this.setState({password: text})
 
   }
-  login = async (email, password) => {
-    let formData = new FormData();
-    formData.append('email', email);
-    formData.append('password', password);
+  checkLogin =  () =>{
+    formdata.append('email', this.state.email)
+    formdata.append('password', this.state.password)
 
-    let res = await fetch(this.state.baseUrl,{
+    fetch(this.state.baseUrl, {
       method: 'POST',
-      body: formData,})
-        // .then((response) => response.json())
-        .then(response => {
-          console.log("done")
+      body: formdata
+    })  .then((response)=> response.json())
+        .then((responseJson)=>{
+          var a = responseJson.Status;
+          if(a === 'Success'){
+            //em nghĩ là phải delete form data ở đây mà em thử dùng thì không được ạ , lỗi ra bảo là delete is not function
+            // formdata.delete('email')
+            return this.props.navigation.navigate('Profile');
+          }else{
+            //em nghĩ là phải delete form data ở đây mà em thử dùng thì không được ạ , lỗi ra bảo là delete is not function
+            // formdata.delete('email')
+            Alert.alert('Tai khoan khong ton tai!');
+          }
         })
-        //Then with the data from the response in JSON...
-        // .then((data) => {
-        //   console.log('Success:', data);
-          // this.setState({
-          //   status: data.get("Status")
-          // })
-        //Then with the error genereted...
-        .catch((error) => {
-          console.error('Error: ', error);
-        });
-    // () => this.props.navigation.navigate('Profile')
-    // alert('email: ' + this.state.email + ' password: ' + this.state.password)
-    // let responseJson = await res.json();
-    // alert("here")
-    // if (responseJson.get('Status') == 'Success') {
-    //   alert('Successful');
-    // }else{
-    //   alert("Invalid")
-    // }
+        .catch((error) =>{
+          console.error(error)
+        })
   }
-
   render(){
     const Devider = (props) =>{
       return <View {...props}>
@@ -99,7 +86,7 @@ class Login extends Component{
 
             <View style={styles.up}>
               <Animated.Image source={require("../images/logocat.png")}
-                     style={styles.logo}/>
+                              style={styles.logo}/>
               <Text style={styles.title}>
                 Please Login
               </Text>
@@ -107,13 +94,14 @@ class Login extends Component{
 
             <View style={styles.down}>
               <View style={styles.textInputContainer}>
-                  <TextInput
-                      style={styles.textInput}
-                      textContentType={'emailAddress'}
-                      keyboardType={'email-address'}
-                      placeholder={"Enter your email"}
-                      onChangeText={this.handleEmail}>
-                  </TextInput>
+                <TextInput
+                    style={styles.textInput}
+                    textContentType={'emailAddress'}
+                    keyboardType={'email-address'}
+                    placeholder={"Enter your email"}
+                    onChangeText={this.handleEmail}
+                    // onChangeText={(value)=> this.setState({email: value})}
+                />
               </View>
 
               <View style={styles.textInputContainer}>
@@ -127,14 +115,9 @@ class Login extends Component{
 
               <View>
                 <TouchableOpacity style={styles.loginButon}
-                    title="Login"
-                    // onPress={() => this.props.navigation.navigate('Profile')}
-                    onPress={
-                      // () => this.login(this.state.email, this.state.password)
-                      // () =>alert("xin chao "+ this.state.email +"----"+this.state.password)
-                      () =>alert(this.state.status)
-                      // ()=> this.login(this.state.email, this.state.password)
-                    }
+                                  title="Login"
+                                  // onPress={() => this.props.navigation.navigate('Profile')}
+                                  onPress={()=> this.checkLogin()}
                 >
                   <Text style={styles.loginButtonTitle}>Login</Text>
                 </TouchableOpacity>
@@ -150,7 +133,7 @@ class Login extends Component{
         </TouchableWithoutFeedback>
 
     )
-}}
+  }}
 const AppNavigator= createStackNavigator(
     {
       Home: {
