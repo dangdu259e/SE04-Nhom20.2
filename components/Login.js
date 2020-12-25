@@ -28,17 +28,19 @@ import ListOfCats from "./ListOfCats";
 import TabNav from "./TabNav";
 
 const FBLoginButton = require('./FBLoginButton');
-let formdata = new FormData();
-
-
+let baseUrl = 'http://192.168.1.10'+':5000/api/login/user/';
 class Login extends Component{
   static navigationOptions= {
     headerShown: false,
   }
-  state= {
-    email:'',
-    password: '',
-    baseUrl: 'http://192.168.1.10'+':5000/api/login/user/',
+  constructor() {
+    super();
+    this.state= {
+      email:'',
+      password: '',
+      kq: 'KET QUA'
+  }
+
   }
   handleEmail=(text)=>{
     this.setState({email: text})
@@ -49,23 +51,24 @@ class Login extends Component{
 
   }
   checkLogin =  () =>{
-    formdata.append('email', this.state.email)
-    formdata.append('password', this.state.password)
+    let formdata = new FormData();
+    formdata.append('email', this.state.email);
+    formdata.append('password', this.state.password);
+    console.log(formdata)
 
-    fetch(this.state.baseUrl, {
+    fetch(baseUrl, {
       method: 'POST',
       body: formdata
     })  .then((response)=> response.json())
         .then((responseJson)=>{
           var a = responseJson.Status;
+          console.log('status: '+a)
           if(a === 'Success'){
-            //em nghĩ là phải delete form data ở đây mà em thử dùng thì không được ạ , lỗi ra bảo là delete is not function
-            // formdata.delete('email')
+            console.log('Login thành công: '+'email: '+ this.state.email+ "/"+ "password: "+this.state.password);
             return this.props.navigation.navigate('Profile');
           }else{
-            //em nghĩ là phải delete form data ở đây mà em thử dùng thì không được ạ , lỗi ra bảo là delete is not function
-            // formdata.delete('email')
-            Alert.alert('Tai khoan khong ton tai!');
+            console.log('Login khong thanh cong: '+'email: '+ this.state.email+ "/"+ "password: "+this.state.password);
+            Alert.alert('Tài khoản hoặc mật khẩu của bạn chưa chính xác');
           }
         })
         .catch((error) =>{
@@ -100,8 +103,12 @@ class Login extends Component{
                     keyboardType={'email-address'}
                     placeholder={"Enter your email"}
                     onChangeText={this.handleEmail}
+                    value={this.state.email}
                     // onChangeText={(value)=> this.setState({email: value})}
                 />
+                <View>
+                  <Text>{this.state.kq}</Text>
+                </View>
               </View>
 
               <View style={styles.textInputContainer}>
@@ -110,6 +117,7 @@ class Login extends Component{
                     secureTextEntry={true}
                     placeholder={"Enter your password"}
                     onChangeText={this.handlePassword}
+                    value={this.state.password}
                 />
               </View>
 
@@ -117,7 +125,7 @@ class Login extends Component{
                 <TouchableOpacity style={styles.loginButon}
                                   title="Login"
                                   // onPress={() => this.props.navigation.navigate('Profile')}
-                                  onPress={()=> this.checkLogin()}
+                                  onPress={()=> {this.checkLogin()}}
                 >
                   <Text style={styles.loginButtonTitle}>Login</Text>
                 </TouchableOpacity>
