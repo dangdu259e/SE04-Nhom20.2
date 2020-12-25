@@ -126,13 +126,13 @@ class Login extends Component{
               <View>
                 <TouchableOpacity style={styles.loginButon}
                     title="Login"
-                    // onPress={() => this.props.navigation.navigate('Profile')}
-                    onPress={
-                      // () => this.login(this.state.email, this.state.password)
-                      // () =>alert("xin chao "+ this.state.email +"----"+this.state.password)
-                      () =>alert(this.state.status)
-                      // ()=> this.login(this.state.email, this.state.password)
-                    }
+                    onPress={() => this.props.navigation.navigate('Profile')}
+                    // onPress={
+                    //   // () => this.login(this.state.email, this.state.password)
+                    //   // () =>alert("xin chao "+ this.state.email +"----"+this.state.password)
+                    //   () =>alert(this.state.status)
+                    //   // ()=> this.login(this.state.email, this.state.password)
+                    // }
                 >
                   <Text style={styles.loginButtonTitle}>Login</Text>
                 </TouchableOpacity>

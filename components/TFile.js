@@ -12,6 +12,19 @@ export default class TFile extends React.Component{
     static navigationOptions= {
         headerShown: false,
     }
+    constructor(props) {
+        super(props);
+        this.state={
+            dt: ''
+        }
+    }
+    componentDidMount() {
+        const data = this.props.navigation.getParam('data');
+        this.setState({
+            dt: data.id
+        })
+    }
+
     render() {
         return (
             <View style={{flex: 1}}>
@@ -19,7 +32,7 @@ export default class TFile extends React.Component{
                     <CustomHeader/>
                 </View>
                 <View style={{flex: 10}}>
-                    <Text>Hello</Text>
+                    <Text>{this.state.dt}</Text>
                 </View>
             </View>
         );

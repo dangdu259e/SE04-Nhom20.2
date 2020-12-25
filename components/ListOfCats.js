@@ -1,37 +1,55 @@
 
-import {View, FlatList, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, FlatList, Text, Image, TouchableOpacity, StyleSheet, RefreshControl, Alert} from 'react-native';
 import React, {Component} from 'react';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer} from 'react-navigation';
 
 import CatDetails from './CatDetails'
-import flatListData from './AllOfCatsDatas'
 import TFile from './TFile';
 
-const url = 'http://192.168.1.105:5000/get_all';
-
+let mang = []
 class Cat extends Component {
     constructor() {
         super();
         this.state={
-            data: []
+            data: [],
+            refreshing: false,  // pull refresh
+            trang: 0,
         }
     }
+
     static navigationOptions= {
         headerShown: false,
     }
-    componentDidMount() {
-        fetch('http://192.168.1.105:5000/get_all')
+
+    // load more
+    _onEndReached() {
+        fetch('http://192.168.1.102:5000/all-cat?trang='+(this.state.trang+1))
             .then((response) => response.json())
             .then((json) => {
-                this.setState({
-                    data: json
-                })
+                if (json.length !==0 ){
+                    mang = mang.concat(json);
+                    this.setState({
+                        data: mang,
+                        trang: this.state.trang + 1
+                    })
+                }
+                // else {
+                //     Alert.alert(
+                //         "THONG BAO",
+                //         "DATA OVER",
+                //         [
+                //             { text: "OK", onPress: () => console.log("OK Pressed") }
+                //         ],
+                //     );
+                // }
+
             })
             .catch((error) => {
                 console.error(error);
             });
     }
+
     render() {
         return (
             <View style={{backgroundColor: 'ghostwhite'}} >
@@ -41,21 +59,26 @@ class Cat extends Component {
                     </Text>
                 </View>
                 <FlatList
+                    // load more
+                    onEndReached={this._onEndReached.bind(this)}
+                    onEndReachedThreshold={0.25}
+
+
                     data={this.state.data}
                     keyExtractor={item => item.id}
                     renderItem={({item}) =>
                         <View style={styles.container}>
                             {/*<Image style={{padding:100}} source={{uri: item.img}}/>*/}
-                            <TouchableOpacity  onPress={() => this.props.navigation.navigate('CatDetails')}>
+                            <TouchableOpacity  onPress={() => {this.props.navigation.navigate('CatDetails', {data: item});}}>
                                 <Image style={styles.image} source={{uri: item.img}}/>
                                 <View style={styles.info}>
                                     <View style={styles.left}>
                                         <Image style={styles.imageLeft} source={{uri: item.img}}/>
-                                        <Text style={styles.min_text}>{item.name}</Text>
+                                        <Text style={styles.min_text}>{item.id}</Text>
                                     </View>
                                     <View>
                                         <TouchableOpacity style={styles.textTouch}
-                                                          onPress={() => this.props.navigation.navigate('Buy')}>
+                                                          onPress={() => {this.props.navigation.navigate('Buy', {data: item});}}>
                                             <Text style={styles.min_text}>Buy</Text>
                                         </TouchableOpacity>
                                     </View>
@@ -66,6 +89,21 @@ class Cat extends Component {
                 />
             </View>
         );
+    }
+
+    componentDidMount() {
+        // 192.168.1.105
+        fetch('http://192.168.1.102:5000/all-cat?trang='+this.state.trang)
+            .then((response) => response.json())
+            .then((json) => {
+                mang = json
+                this.setState({
+                    data: mang
+                })
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 }
 
