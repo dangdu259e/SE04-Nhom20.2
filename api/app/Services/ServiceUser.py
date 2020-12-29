@@ -56,6 +56,29 @@ def check_account(email, phone):
     finally:
         connection.close()
 
+def resetPassword (id, password):
+    # connect DB MYSQL
+    connection = Connection.ConnectionDB()
+    # Query and check
+    try:
+        with connection.cursor() as cursor:
+            # Read a single record
+            # cursor.execute('SELECT * FROM accounts WHERE username = %s AND password = %s', (username, password,))
+            sql = "UPDATE `user` SET `password`=%s where `id` = %s"
+            cursor.execute(sql, (password, id))
+        connection.commit()
+
+        with connection.cursor() as cursor:
+            sql = "SELECT * FROM `user` WHERE `id`=%s AND `password`=%s"
+            cursor.execute(sql, (id,password))
+            temp = cursor.fetchall()
+            if (len(temp) > 0):
+                return 'Success'
+            else:
+                return 'Invalid'
+    finally:
+        connection.close()
+
 def create_user(email, password, name, phone):
     # connect DB MYSQL
     connection = Connection.ConnectionDB()

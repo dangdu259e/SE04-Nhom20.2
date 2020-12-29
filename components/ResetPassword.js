@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {Alert, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {COLOR_DARK_RED} from './myColor';
 import {IPV4} from '../config';
 
-var baseUrl = 'http://'+IPV4+':5000/api/create/user/';
+var baseUrl = 'http://'+IPV4+':5000/api/reset/password-account';
 
 
 export default class ForgotPassword extends Component{
@@ -26,7 +26,42 @@ export default class ForgotPassword extends Component{
     }
     saveNewPass(){
         if(this.state.password == this.state.confirmpassword ){
-
+            let formdata = new FormData();
+            let fone = this.state.phone;
+            fone = fone.toString()
+            formdata.append('id', this.state.idaccount);
+            formdata.append('password', this.state.password);
+            Alert.alert(
+                "Xác nhận",
+                "Xác nhận mật khẩu chính xác",
+                [
+                    {
+                        text: "Cancel",
+                        onPress: () => console.log("Cancel Pressed"),
+                        style: "cancel"
+                    },
+                    {
+                        text: "OK", onPress: () =>
+                            fetch(baseUrl, {
+                                method: 'POST',
+                                body: formdata,
+                            }).then((response) => response.json())
+                                .then((responseJson) => {
+                                    var a = responseJson.Status;
+                                    console.log('status : ' + a)
+                                    if (a == 'Success') {
+                                        return this.props.navigation.navigate('Home');
+                                    } else {
+                                        Alert.alert('Đã sảy ra lỗi Server, quý khách vui lòng thử lại');
+                                    }
+                                })
+                                .catch((error) => {
+                                    console.error(error)
+                                })
+                    }
+                ],
+                {cancelable: false}
+            );
         }else{
             alert('Password và Confirm Password chưa trùng khớp với nhau')
         }
@@ -69,7 +104,7 @@ export default class ForgotPassword extends Component{
                     onPress={()=>{this.saveNewPass()}}
                 >
                     <View style={styles.btnAccept}>
-                        <Text>Xác nhận</Text>
+                        <Text style={{fontSize:17}}>Xác nhận</Text>
                         <Text>{this.state.idaccount}</Text>
                     </View>
                 </TouchableOpacity>
@@ -98,8 +133,9 @@ const styles = StyleSheet.create({
     btnAccept:{
         backgroundColor: 'green',
         padding: 20,
-        borderRadius: 10,
+        fontSize: 18,
         width: '90%',
+        borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center'

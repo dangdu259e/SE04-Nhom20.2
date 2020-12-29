@@ -59,6 +59,16 @@ def getalluser():
         dic.update(temp)
     return dic
 
+@app.route('/api/reset/password-account', methods=['POST'])
+def resetpassworduser():
+    id = request.form.get('id')
+    password = request.form.get('password')
+    result = ServiceUser.resetPassword(id,password)
+    if (result == 'Success'):
+        return 'Success', 200
+    else:
+        return 'Invalid', 404
+
 @app.route('/api/delete_account_user', methods=['POST'])
 def deleteaccountuser():
     id = request.form.get('id')
