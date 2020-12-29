@@ -15,6 +15,8 @@
     "@react-navigation/drawer": "^5.11.4",
     "@react-navigation/native": "^5.8.10",
     "@react-navigation/stack": "^5.12.6",
+    "@reduxjs/toolkit": "^1.5.0",
+    "lodash.remove": "^4.7.0",
     "react": "16.13.1",
     "react-native": "0.63.3",
     "react-native-elements": "^3.0.0-alpha.1",
@@ -26,7 +28,10 @@
     "react-native-screens": "^2.15.0",
     "react-native-vector-icons": "^7.1.0",
     "react-navigation": "^4.4.3",
-    "react-navigation-stack": "^2.10.1"
+    "react-navigation-stack": "^2.10.1",
+    "react-redux": "^7.2.2",
+    "redux": "^4.0.5",
+    "redux-react-native-session": "^1.0.7"
   },
   "devDependencies": {
     "@babel/core": "7.12.3",
@@ -39,7 +44,9 @@
     "metro-react-native-babel-preset": "0.59.0",
     "native-base": "^2.13.14",
     "react-navigation-tabs": "^2.10.1",
-    "react-test-renderer": "16.13.1"
+    "react-test-renderer": "16.13.1",
+    "redux-devtools": "^3.7.0",
+    "redux-thunk": "^2.3.0"
   },
   "jest": {
     "preset": "react-native"

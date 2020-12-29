@@ -4,21 +4,6 @@ from ..Services import db_connection
 from app import app
 
 
-@app.route('/all-cats')
-def get_alls():
-    conn = db_connection.ConnectionDB()
-    try:
-        with conn.cursor() as cursor:
-            sql = "SELECT * FROM `cat`"
-            cursor.execute(sql)
-            data = cursor.fetchall()
-            print(type(data))
-        conn.commit()
-    finally:
-        conn.close()
-        return jsonify(data)
-
-
 @app.route('/all-cat')
 def get_all():
     conn = db_connection.ConnectionDB()

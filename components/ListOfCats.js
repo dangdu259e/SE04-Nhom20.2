@@ -1,37 +1,69 @@
-
 import {View, FlatList, Text, Image, TouchableOpacity, StyleSheet, RefreshControl, Alert} from 'react-native';
 import React, {Component} from 'react';
-import {createStackNavigator} from 'react-navigation-stack';
-import {createAppContainer} from 'react-navigation';
 
 import CatDetails from './CatDetails'
 import TFile from './TFile';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import thanhtoan from './thanhtoan';
 
+// var url = 'http://192.168.1.103:5000'
+var url = 'http://172.19.200.109:5000'
 let mang = []
 class Cat extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state={
             data: [],
             refreshing: false,  // pull refresh
-            trang: 0,
+            page: 0,
+            id_listofcat: this.props.navigation.getParam('id_login'),
+            // cart: [],
+            // receivedValue: []
         }
+        // global.addProductToCart = this.addProductToCart.bind(this)
     }
 
     static navigationOptions= {
         headerShown: false,
     }
 
+    // receivedValue = (cart) => {
+    //     this.setState({cart})
+    // }
+
+    componentDidMount() {
+        // 192.168.1.105
+        // const id = this.props.navigation.getParam('id')
+        fetch(url+'/all-cat?trang='+this.state.page)
+            .then((response) => response.json())
+            .then((json) => {
+                mang = json
+                this.setState({
+                    data: mang,
+                })
+
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
+    // addProductToCart(product) {
+    //     this.setState({
+    //         cart: this.state.cart.concat(product)
+    //     })
+    // }
+
     // load more
     _onEndReached() {
-        fetch('http://192.168.1.102:5000/all-cat?trang='+(this.state.trang+1))
+        fetch('http://192.168.1.106:5000/all-cat?trang='+(this.state.page+1))
             .then((response) => response.json())
             .then((json) => {
                 if (json.length !==0 ){
                     mang = mang.concat(json);
                     this.setState({
                         data: mang,
-                        trang: this.state.trang + 1
+                        page: this.state.page + 1
                     })
                 }
                 // else {
@@ -50,66 +82,64 @@ class Cat extends Component {
             });
     }
 
+    // addThisProductToCart() {
+    //     const product = this.props;
+    //     global.addProductToCart(product);
+    // }
+
     render() {
         return (
-            <View style={{backgroundColor: 'ghostwhite'}} >
-                <View>
-                    <Text style={styles.text_header}>
-                        The most loved cats
-                    </Text>
+                <View style={{backgroundColor: 'ghostwhite'}} >
+                    <View style={{flexDirection: 'row'}}>
+                        <Text style={styles.text_header}>
+                            The most loved cats
+                        </Text>
+
+                        {/*<TouchableOpacity style={{flexDirection: 'row',}} >*/}
+                        {/*    <Ionicons name="cart-outline" style={styles.cart}/>*/}
+                        {/*    <Text style={{color: 'red', fontWeight: 'bold'}}>{this.state.cart.length}</Text>*/}
+                        {/*</TouchableOpacity>*/}
+                    </View>
+                    <FlatList
+                        // load more
+                        onEndReached={this._onEndReached.bind(this)}
+                        onEndReachedThreshold={0.25}
+
+
+                        data={this.state.data}
+                        keyExtractor={item => item.id}
+                        renderItem={({item}) =>
+                            <View style={styles.container}>
+                                {/*<Image style={{padding:100}} source={{uri: item.img}}/>*/}
+                                <TouchableOpacity  onPress={() => {this.props.navigation.navigate('CatDetail', {data: item, id_listofcat: this.state.id_listofcat })}}>
+                                                                    {/*// receivedValue: this.receivedValue});}}>*/}
+                                    <Image style={styles.image} source={{uri: item.img}}/>
+                                    <View style={styles.info}>
+                                        <View style={styles.left}>
+                                            <Image style={styles.imageLeft} source={{uri: item.img}}/>
+                                            <Text style={styles.min_text}>{item.id}</Text>
+                                            <Text style={styles.min_text}>tam thoi {this.state.id_listofcat}</Text>
+                                        </View>
+                                        <View>
+                                            {/*onPress={this.addThisProductToCart.bind(this)}>*/}
+                                            <TouchableOpacity style={styles.textTouch} onPress={() => {this.props.navigation.navigate('CatDetails', {data: item,});}}>
+                                                              {/* onPress={() => {this.props.navigation.navigate('Buy', {data: item});}}>*/}
+                                                <Text style={styles.min_text}>Buy</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                        }
+                    />
                 </View>
-                <FlatList
-                    // load more
-                    onEndReached={this._onEndReached.bind(this)}
-                    onEndReachedThreshold={0.25}
-
-
-                    data={this.state.data}
-                    keyExtractor={item => item.id}
-                    renderItem={({item}) =>
-                        <View style={styles.container}>
-                            {/*<Image style={{padding:100}} source={{uri: item.img}}/>*/}
-                            <TouchableOpacity  onPress={() => {this.props.navigation.navigate('CatDetails', {data: item});}}>
-                                <Image style={styles.image} source={{uri: item.img}}/>
-                                <View style={styles.info}>
-                                    <View style={styles.left}>
-                                        <Image style={styles.imageLeft} source={{uri: item.img}}/>
-                                        <Text style={styles.min_text}>{item.id}</Text>
-                                    </View>
-                                    <View>
-                                        <TouchableOpacity style={styles.textTouch}
-                                                          onPress={() => {this.props.navigation.navigate('Buy', {data: item});}}>
-                                            <Text style={styles.min_text}>Buy</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                    }
-                />
-            </View>
         );
-    }
-
-    componentDidMount() {
-        // 192.168.1.105
-        fetch('http://192.168.1.102:5000/all-cat?trang='+this.state.trang)
-            .then((response) => response.json())
-            .then((json) => {
-                mang = json
-                this.setState({
-                    data: mang
-                })
-            })
-            .catch((error) => {
-                console.error(error);
-            });
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        // flex: 1,
         flexDirection: 'column',
         borderWidth: 2,   // độ dày của viền
         borderRadius: 10, // độ tròn của viền
@@ -130,7 +160,7 @@ const styles = StyleSheet.create({
     image: {
         padding: 150,
         justifyContent: 'center',
-        flex: 7,
+        // flex: 7,
         borderRadius: 10,
     },
     info: {
@@ -158,25 +188,33 @@ const styles = StyleSheet.create({
         padding:10,
         borderWidth: 2,
         borderRadius: 10,
-    }
+    },
+    cart: {
+        fontSize: 45,
+        paddingLeft: '5%',
+        color: 'orange'
+    },
 
 })
 
-const AppNavigator = createStackNavigator(
-    {
-        Home: Cat,
-        CatDetails: CatDetails,
-        Buy: TFile
-    },
-    {
-        initialRouteName: "Home"
-    }
-);
+// const AppNavigator = createStackNavigator(
+//     {
+//         Home: Cat,
+//         CatDetails: CatDetails,
+//         Buy: TFile,
+//         Thanhtoan: thanhtoan
+//     },
+//     {
+//         initialRouteName: "Home"
+//     }
+// );
+//
+// const AppContainer = createAppContainer(AppNavigator);
+//
+// export default class App extends React.Component {
+//     render() {
+//         return <AppContainer />;
+//     }
+// }
 
-const AppContainer = createAppContainer(AppNavigator);
-
-export default class App extends React.Component {
-    render() {
-        return <AppContainer />;
-    }
-}
+export default Cat;
