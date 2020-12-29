@@ -21,10 +21,13 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback, Keyboard, Alert
 } from 'react-native';
-import {COLOR_DARK_RED, COLOR_GRAY, COLOR_LIGHT_RED} from './myColor'
+import {COLOR_DARK_RED, COLOR_GRAY, COLOR_LIGHT_RED, backco} from './myColor'
 import {  createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack'
 import ListOfCats from "./ListOfCats";
+import ForgotPassword from "./ForgotPassword";
+import CreateAccount from "./CreateAccount";
+import ResetPassword from "./ResetPassword";
 import TabNav from "./TabNav";
 
 const FBLoginButton = require('./FBLoginButton');
@@ -51,29 +54,33 @@ class Login extends Component{
 
   }
   checkLogin =  () =>{
-    let formdata = new FormData();
-    formdata.append('email', this.state.email);
-    formdata.append('password', this.state.password);
-    console.log(formdata)
+    if(this.state.email == '' && this.state.email==''){
+      alert('Mời bạn nhập đầy đủ Email và Password')
+    }else {
+      let formdata = new FormData();
+      formdata.append('email', this.state.email);
+      formdata.append('password', this.state.password);
+      console.log(formdata)
 
-    fetch(baseUrl, {
-      method: 'POST',
-      body: formdata
-    })  .then((response)=> response.json())
-        .then((responseJson)=>{
-          var a = responseJson.Status;
-          console.log('status: '+a)
-          if(a === 'Success'){
-            console.log('Login thành công: '+'email: '+ this.state.email+ "/"+ "password: "+this.state.password);
-            return this.props.navigation.navigate('Profile');
-          }else{
-            console.log('Login khong thanh cong: '+'email: '+ this.state.email+ "/"+ "password: "+this.state.password);
-            Alert.alert('Tài khoản hoặc mật khẩu của bạn chưa chính xác');
-          }
-        })
-        .catch((error) =>{
-          console.error(error)
-        })
+      fetch(baseUrl, {
+        method: 'POST',
+        body: formdata
+      }).then((response) => response.json())
+          .then((responseJson) => {
+            var a = responseJson.Status;
+            console.log('status: ' + a)
+            if (a === 'Success') {
+              console.log('Login thành công: ' + 'email: ' + this.state.email + "/" + "password: " + this.state.password);
+              return this.props.navigation.navigate('Profile');
+            } else {
+              console.log('Login khong thanh cong: ' + 'email: ' + this.state.email + "/" + "password: " + this.state.password);
+              Alert.alert('Tài khoản hoặc mật khẩu của bạn chưa chính xác');
+            }
+          })
+          .catch((error) => {
+            console.error(error)
+          })
+    }
   }
   render(){
     const Devider = (props) =>{
@@ -104,11 +111,7 @@ class Login extends Component{
                     placeholder={"Enter your email"}
                     onChangeText={this.handleEmail}
                     value={this.state.email}
-                    // onChangeText={(value)=> this.setState({email: value})}
                 />
-                <View>
-                  <Text>{this.state.kq}</Text>
-                </View>
               </View>
 
               <View style={styles.textInputContainer}>
@@ -133,8 +136,23 @@ class Login extends Component{
 
               <Devider style={styles.devider}>
               </Devider>
-              <View>
+              <View style={{justifyContent:'center', alignItems:'center'}}>
                 <FBLoginButton />
+              </View>
+              <View style={{flex: 1, flexDirection:'row', marginTop:20}}>
+                <TouchableOpacity
+                    style={styles.btnforgotPassword}
+                    onPress={()=> this.props.navigation.navigate('ForgotPassword')}
+                >
+                    <Text>Forgot password </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.btncreateAccount}
+                    onPress={()=> this.props.navigation.navigate('CreateAccount')}
+
+                >
+                    <Text>Create Account </Text>
+                </TouchableOpacity>
               </View>
             </View>
           </View>
@@ -151,6 +169,18 @@ const AppNavigator= createStackNavigator(
       Profile: {
         screen: ListOfCats,
         navigationOptions: { headerShown: false}
+      },
+      ForgotPassword:{
+        screen: ForgotPassword,
+        navigationOptions: {headerShown: false}
+      },
+      ResetPassword:{
+        screen: ResetPassword,
+        navigationOptions: {headerShown: false}
+      },
+      CreateAccount:{
+        screen: CreateAccount,
+        navigationOptions: {headerShown: false}
       }
     },
     {
@@ -170,7 +200,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'stretch',
-    backgroundColor: COLOR_DARK_RED,
+    backgroundColor: backco,
 
   },
   up:{
@@ -189,7 +219,8 @@ const styles = StyleSheet.create({
     color:'green'
   },
   title:{
-    color: 'white',
+    marginTop:15,
+    color: 'black',
     textAlign: 'center',
     width: 400,
     fontSize: 28,
@@ -210,11 +241,15 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     justifyContent: 'center',
     alignItems: 'center',
+    textAlign: 'center',
     backgroundColor: COLOR_LIGHT_RED,
   },
   loginButtonTitle:{
     fontSize: 18,
-    color: 'white'
+    color: 'white',
+    alignItems: 'center',
+    textAlign: 'center',
+    justifyContent:'center',
   },
   facebookButton:{
     width: 300,
@@ -250,6 +285,14 @@ const styles = StyleSheet.create({
     height: 100,
     fontSize: 20,
   },
+  btnforgotPassword:{
+    marginRight: 34,
+    padding: 1,
+  },
+  btncreateAccount:{
+    marginLeft: 34,
+    padding: 1,
 
+  }
 });
 // AppRegistry.registerComponent('Login', () => Login)

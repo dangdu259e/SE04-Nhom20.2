@@ -12,18 +12,32 @@ def loginuser():
     else:
         return jsonify(result), 404
 
+@app.route('/api/check/account/', methods=['POST'])
+def checkaccount():
+    email = request.form.get('email')
+    phone = request.form.get('phone')
+    result = ServiceUser.check_account(email, phone)
+    if(result.get('Status')=='Success'):
+        return jsonify(result), 200
+    else:
+        return jsonify(result), 404
+
 @app.route('/api/create/user/', methods=['POST'])
 def creatuser():
+    print('da toi day')
     email = request.form.get('email')
     password = request.form.get('password')
     name = request.form.get('name')
-    add = request.form.get('add')
     phone = request.form.get('phone')
-    result = ServiceUser.create_user(email, password, name, add, phone)
+    result = ServiceUser.create_user(email, password, name, phone)
+    print(result)
+    print(type(result))
     if (result.get('Status') == 'Success'):
         return jsonify(result), 200
     else:
         return jsonify(result), 404
+
+
 
 @app.route('/api/insert/user/', methods=['POST'])
 def insertuser():
