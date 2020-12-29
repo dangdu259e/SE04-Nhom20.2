@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {COLOR_DARK_RED} from './myColor';
+import {IPV4} from '../config';
+
+var baseUrl = 'http://'+IPV4+':5000/api/create/user/';
+
 
 export default class ForgotPassword extends Component{
     static navigationOptions= {

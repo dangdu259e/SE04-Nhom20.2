@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {Alert, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {COLOR_DARK_RED} from './myColor';
-
-let ipv4 = 'http://192.168.1.10'
+import {IPV4} from '../config';
 // let baseUrl = ipv4+':5000/api/create/user';
-let baseUrl = 'http://192.168.1.10:5000/api/create/user/';
+// let baseUrl = 'http://192.168.1.10:5000/api/create/user/';
+var baseUrl = 'http://'+IPV4+':5000/api/create/user/';
 
 export default class ForgotPassword extends Component{
     static navigationOptions= {
@@ -19,6 +19,7 @@ export default class ForgotPassword extends Component{
             phone: '',
         }
     }
+
     handleEmail=(text)=>{
         this.setState({email: text})
     }
@@ -32,30 +33,54 @@ export default class ForgotPassword extends Component{
         this.setState({phone: text})
     }
     createAccount =  () => {
-        let formdata = new FormData();
-        let fone = this.state.phone;
-        fone = fone.toString()
-        formdata.append('email', this.state.email);
-        formdata.append('password', this.state.password);
-        formdata.append('name', this.state.name);
-        formdata.append('phone', fone);
-
-        fetch(baseUrl, {
-            method: 'POST',
-            body: formdata,
-        })  .then((response)=> response.json())
-            .then((responseJson)=>{
-                var a = responseJson.Status;
-                console.log('status : '+a)
-                if(a === 'Success'){
-                    return this.props.navigation.navigate('Home');
-                }else{
-                    Alert.alert('Tài khoản hoặc số điện thoại của bạn chưa chính xác!');
-                }
-            })
-            .catch((error) =>{
-                console.error(error)
-            })
+        if(this.state.email==''){
+            alert('Bạn cần phải nhập email');
+        }else if(this.state.password==''){
+            alert('Bạn cần phải nhập password');
+        }else if(this.state.name == ''){
+            alert('Bạn cần phải nhập tên');
+        }else if(this.state.phone==''){
+            alert('Bạn cần phải nhập số điện thoại');
+        }else {
+            let formdata = new FormData();
+            let fone = this.state.phone;
+            fone = fone.toString()
+            formdata.append('email', this.state.email);
+            formdata.append('password', this.state.password);
+            formdata.append('name', this.state.name);
+            formdata.append('phone', fone);
+            Alert.alert(
+                "Xác nhận",
+                "Xác nhận thông tin tài khoản",
+                [
+                    {
+                        text: "Cancel",
+                        onPress: () => console.log("Cancel Pressed"),
+                        style: "cancel"
+                    },
+                    {
+                        text: "OK", onPress: () =>
+                            fetch(baseUrl, {
+                                method: 'POST',
+                                body: formdata,
+                            }).then((response) => response.json())
+                                .then((responseJson) => {
+                                    var a = responseJson.Status;
+                                    console.log('status : ' + a)
+                                    if (a === 'Success') {
+                                        return this.props.navigation.navigate('Home');
+                                    } else {
+                                        Alert.alert('Tài khoản hoặc số điện thoại của bạn chưa chính xác!');
+                                    }
+                                })
+                                .catch((error) => {
+                                    console.error(error)
+                                })
+                    }
+                ],
+                {cancelable: false}
+            );
+        }
     }
 
     render() {
