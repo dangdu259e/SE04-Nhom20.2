@@ -146,7 +146,7 @@ export default class thanhtoan extends Component{
                     onPress={() => this.payment()}
                 >
                     <View style={styles.btnAccept}>
-                        <Text>Xác nhận</Text>
+                        <Text style={{fontSize:17}}>Xác nhận</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity style={{alignItems:'center',marginTop:20}} onPress={() => { this.props.navigation.goBack()}}>
@@ -174,7 +174,9 @@ const styles = StyleSheet.create({
     btnAccept:{
         backgroundColor: 'green',
         padding: 20,
+        fontSize: 18,
         width: '90%',
+        borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center'

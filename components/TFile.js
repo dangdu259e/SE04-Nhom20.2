@@ -45,8 +45,8 @@ export default class TFile extends React.Component{
                 number: this.state.number - 1,
                 total: (this.state.number-1) * this.state.amount,
             });
-            total_[0].total = this.state.total;
-            total_[0].number = this.state.number;
+            total_.total = this.state.total;
+            total_.number = this.state.number;
         }else{
             Alert.alert(
                 "Warning !!!",

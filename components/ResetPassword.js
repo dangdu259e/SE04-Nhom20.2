@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import {Alert, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {COLOR_DARK_RED} from './myColor';
-import {IPV4} from '../config';
-
-var baseUrl = 'http://'+IPV4+':5000/api/reset/password-account';
+import {url_resetPassword} from "../URL-config";
 
 
 export default class ForgotPassword extends Component{
@@ -28,7 +26,7 @@ export default class ForgotPassword extends Component{
         if(this.state.password == this.state.confirmpassword ){
             let formdata = new FormData();
             let fone = this.state.phone;
-            fone = fone.toString()
+            // fone = fone.toString()
             formdata.append('id', this.state.idaccount);
             formdata.append('password', this.state.password);
             Alert.alert(
@@ -42,14 +40,14 @@ export default class ForgotPassword extends Component{
                     },
                     {
                         text: "OK", onPress: () =>
-                            fetch(baseUrl, {
+                            fetch(url_resetPassword, {
                                 method: 'POST',
                                 body: formdata,
                             }).then((response) => response.json())
                                 .then((responseJson) => {
                                     var a = responseJson.Status;
                                     console.log('status : ' + a)
-                                    if (a == 'Success') {
+                                    if (a === 'Success') {
                                         return this.props.navigation.navigate('Home');
                                     } else {
                                         Alert.alert('Đã sảy ra lỗi Server, quý khách vui lòng thử lại');

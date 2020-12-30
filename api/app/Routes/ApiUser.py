@@ -25,7 +25,6 @@ def checkaccount():
 
 @app.route('/api/create/user/', methods=['POST'])
 def creatuser():
-    print('da toi day')
     email = request.form.get('email')
     password = request.form.get('password')
     name = request.form.get('name')
@@ -66,9 +65,9 @@ def resetpassworduser():
     password = request.form.get('password')
     result = ServiceUser.resetPassword(id,password)
     if (result == 'Success'):
-        return 'Success', 200
+        return jsonify(result), 200
     else:
-        return 'Invalid', 404
+        return jsonify(result), 404
 
 @app.route('/api/delete_account_user', methods=['POST'])
 def deleteaccountuser():
@@ -80,6 +79,6 @@ def deleteaccountuser():
     phone = request.form.get('phone')
     result = ServiceDeleteAccount.delete_account(id, email, password, name, add, phone)
     if(result=='Success'):
-        return 'Success', 200
+        return jsonify(result), 200
     else:
-        return 'Invalid', 404
+        return jsonify(result), 404

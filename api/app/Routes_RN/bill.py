@@ -25,6 +25,7 @@ def save():
     total_cost = request.form.get('total_cost')
     print(total_cost)
     print(id_cat)
+    print(id_user)
     one = entitybill.bill_enti(name, phone, add, note, id_user, id_cat)
     if one.isNone():
         return {'status': 'not full'}

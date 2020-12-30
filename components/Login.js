@@ -37,10 +37,12 @@ import ListOfCats from "./ListOfCats";
 import ForgotPassword from "./ForgotPassword";
 import CreateAccount from "./CreateAccount";
 import ResetPassword from "./ResetPassword";
+import {url_login} from "../URL-config";
+
 import TabNav from "./TabNav";
 
 const FBLoginButton = require('./FBLoginButton');
-let baseUrl = 'http://192.168.1.10'+':5000/api/login/user/';
+
 class Login extends Component{
   static navigationOptions= {
     headerShown: false,
@@ -49,34 +51,21 @@ class Login extends Component{
     super(props);
     this.state= {
       stt: ['abc'],
-      id_login: '1',
+      id_login: '',
       email : '',
       password : '',
       status: '',
-      // baseUrl: ipv4Address + ':5000/api/login/user/'
-      baseUrl: '192.168.1.7' + ':5000/api/login/user/'
+      kq: 'KET QUA',
     }
-  }
-
-  handleEmail= (text)=>{
-  constructor() {
-    super();
-    this.state= {
-      email:'',
-      password: '',
-      kq: 'KET QUA'
-  }
-
   }
   handleEmail=(text)=>{
     this.setState({email: text})
-
   }
   handlePassword=(text)=>{
     this.setState({password: text})
-
   }
-  checkLogin =  () =>{
+
+  checkLogin = () =>{
     if(this.state.email == '' && this.state.email==''){
       alert('Mời bạn nhập đầy đủ Email và Password')
     }else {
@@ -85,19 +74,7 @@ class Login extends Component{
       formdata.append('password', this.state.password);
       console.log(formdata)
 
-    let res = await fetch(this.state.baseUrl,{
-      method: 'POST',
-      body: formData,})
-        .then((response) => response.json())
-        //Then with the data from the response in JSON...
-        .then((data) => {
-          console.log('Success:', data);
-        })
-        //Then with the error genereted...
-        .catch((error) => {
-          console.error('Error:', error);
-        });
-      fetch(baseUrl, {
+      fetch(url_login, {
         method: 'POST',
         body: formdata
       }).then((response) => response.json())
@@ -105,8 +82,10 @@ class Login extends Component{
             var a = responseJson.Status;
             console.log('status: ' + a)
             if (a === 'Success') {
+              const b = responseJson.id;
+              this.setState({id_login: b});
               console.log('Login thành công: ' + 'email: ' + this.state.email + "/" + "password: " + this.state.password);
-              return this.props.navigation.navigate('Profile');
+              return this.props.navigation.navigate('Profile', {id_login: this.state.id_login});
             } else {
               console.log('Login khong thanh cong: ' + 'email: ' + this.state.email + "/" + "password: " + this.state.password);
               Alert.alert('Tài khoản hoặc mật khẩu của bạn chưa chính xác');
@@ -162,16 +141,7 @@ class Login extends Component{
               <View>
                 <TouchableOpacity style={styles.loginButon}
                     title="Login"
-                    onPress={() => {this.props.navigation.navigate('Profile', {id_login: this.state.id_login})}}
-                    // onPress={
-                    //   // () => this.login(this.state.email, this.state.password)
-                    //   // () =>alert("xin chao "+ this.state.email +"----"+this.state.password)
-                    //   () =>alert(this.state.status)
-                    //   // ()=> this.login(this.state.email, this.state.password)
-                    // }
-                                  title="Login"
-                                  // onPress={() => this.props.navigation.navigate('Profile')}
-                                  onPress={()=> {this.checkLogin()}}
+                    onPress={() => {this.checkLogin()}}
                 >
                   <Text style={styles.loginButtonTitle}>Login </Text>
                 </TouchableOpacity>
@@ -216,7 +186,7 @@ const AppNavigator= createStackNavigator(
       CatDetail : CatDetails,
       Buy: TFile,
       Thanhtoan: thanhtoan,
-      Hoadon: hoadon
+      Hoadon: hoadon,
       ForgotPassword:{
         screen: ForgotPassword,
         navigationOptions: {headerShown: false}

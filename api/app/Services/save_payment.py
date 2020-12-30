@@ -52,7 +52,6 @@ def save_payment(total_cost, id_cat):
             cursor.execute(sql)
             sql_next = "UPDATE `cat` SET `quantity`=`quantity`-1 WHERE  `id`='{}'".format(id_cat)
             cursor.execute(sql_next)
-
         conn.commit()
 
         with conn.cursor() as cursor:

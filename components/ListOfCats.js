@@ -91,7 +91,7 @@ class Cat extends Component {
 
 
                         data={this.state.data}
-                        keyExtractor={item => item.id}
+                        keyExtractor={item => item.id.toString()}
                         renderItem={({item}) =>
                             <View style={styles.container}>
                                 {/*<Image style={{padding:100}} source={{uri: item.img}}/>*/}
@@ -179,25 +179,5 @@ const styles = StyleSheet.create({
     },
 
 })
-
-// const AppNavigator = createStackNavigator(
-//     {
-//         Home: Cat,
-//         CatDetails: CatDetails,
-//         Buy: TFile,
-//         Thanhtoan: thanhtoan
-//     },
-//     {
-//         initialRouteName: "Home"
-//     }
-// );
-//
-// const AppContainer = createAppContainer(AppNavigator);
-//
-// export default class App extends React.Component {
-//     render() {
-//         return <AppContainer />;
-//     }
-// }
 
 export default Cat;
