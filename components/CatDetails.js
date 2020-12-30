@@ -8,11 +8,6 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Slider from './Slider';
-import {createStackNavigator} from 'react-navigation-stack';
-import TFile from './TFile';
-import {createAppContainer} from 'react-navigation';
-
-// import global from  './global'
 
 let a = []
 class CatDetails extends React.Component{
@@ -79,7 +74,6 @@ class CatDetails extends React.Component{
                 <View style={{flex: 7}}>
                     <View style={styles.viewcost}>
                         <Text style={styles.cost}>GIÁ BÁN: {this.state.arr.price} </Text>
-                        <Text style={styles.cost}>id: {this.state.arr.id} </Text>
                     </View>
 
                     {/*view for details: name, kind of cat*/}
@@ -96,7 +90,7 @@ class CatDetails extends React.Component{
                     {/*onPress={this.addThisProductToCart.bind(this)}>*/}
                     <TouchableOpacity style={styles.button}
                                       onPress={() => {this.props.navigation.navigate('Buy', {data: this.state.arr, id_catDetail: this.state.id_catDetails})}}>
-                        <Text style={styles.text_butt} >Buy now {this.state.id_catDetails}</Text>
+                        <Text style={styles.text_butt} >Buy now</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -132,12 +126,14 @@ const styles = StyleSheet.create({
     },
     cost: {
         fontWeight: 'bold',
+        fontSize: 16
     },
     textBox: {
-        backgroundColor: 'lavender'
+        backgroundColor: 'lavender',
     },
     textInBox: {
-        margin: 20,
+        margin: 15,
+        fontSize: 16,
     },
     viewofbutton: {
         flex: 1.25,

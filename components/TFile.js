@@ -8,10 +8,11 @@ import React from 'react'
 import {View, Text, FlatList, TouchableOpacity, Image, StyleSheet, TextInput, Alert} from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Moment from 'moment';
 
 
 let a = []
-
+let total_ = {'total': 0, 'number': 0}
 export default class TFile extends React.Component{
     static navigationOptions= {
         headerShown: false,
@@ -42,8 +43,10 @@ export default class TFile extends React.Component{
         if(this.state.number > 1){
             this.setState({
                 number: this.state.number - 1,
-                total: (this.state.number-1) * this.state.amount
+                total: (this.state.number-1) * this.state.amount,
             });
+            total_[0].total = this.state.total;
+            total_[0].number = this.state.number;
         }else{
             Alert.alert(
                 "Warning !!!",
@@ -71,7 +74,10 @@ export default class TFile extends React.Component{
                     onPress: () => console.log("Cancel Pressed"),
                     style: "cancel"
                 },
-                { text: "OK", onPress: () => this.props.navigation.navigate('Thanhtoan',{data: this.props.navigation.getParam('data'), id_user_TF: this.state.id_user_TF})}
+                { text: "OK", onPress: () =>
+                        this.props.navigation.navigate('Thanhtoan',
+                            {data: this.props.navigation.getParam('data'),
+                                id_user_TF: this.state.id_user_TF, total: this.state.total, number: this.state.number,})}
             ],
             { cancelable: false }
         );
@@ -83,7 +89,8 @@ export default class TFile extends React.Component{
         this.setState({
             data: a,
             amount : data.price,
-            total: data.price
+            total: data.price,
+
         })
     }
 
@@ -97,7 +104,7 @@ export default class TFile extends React.Component{
                 </TouchableOpacity>
                 <View style={{flexDirection: 'row'}}>
                     <Text style={styles.text_header}>
-                        ...In your cart... {this.state.id_user_TF}
+                        ...Thanh toán...
                     </Text>
                 </View>
                 <View>
@@ -114,6 +121,7 @@ export default class TFile extends React.Component{
                                             <Image style={styles.imageLeft} source={{uri: item.img}}/>
                                             <View  style={{flexDirection: 'column'}}>
                                                 <Text style={styles.min_text}>Tên: {item.name}</Text>
+                                                <Text style={styles.min_text}>Mã: {item.id}</Text>
                                                 <Text style={styles.min_text}>Nguồn gốc: {item.origin}</Text>
                                                 <Text style={styles.min_text}>Giống: {item.gender}</Text>
                                                 <Text style={styles.min_text}>Giá: {item.price}</Text>
@@ -137,7 +145,7 @@ export default class TFile extends React.Component{
                         <Ionicons name="add-circle-sharp" style={styles.cart1}/>
                     </TouchableOpacity>
                     <View style={{justifyContent:'center', padding: 10,}}>
-                    <Text placeholder={"Number"} style={{borderWidth: 1, paddingLeft: 50, paddingRight: 50, borderRadius: 5, alignItems:'center', justifyContent:'center', fontSize:23}}>{this.state.number}</Text>
+                    <Text placeholder={"Number"} style={styles.number}>{this.state.number}</Text>
                     </View>
                     <TouchableOpacity style={{ marginLeft:10}} onPress={()=> this.removeNumber()}>
                         <Ionicons name="remove-circle-sharp" style={styles.cart2}/>
@@ -145,10 +153,10 @@ export default class TFile extends React.Component{
                 </View>
                 <View style={{ margin: 17,}}>
                     <Text style={{fontSize:18}}>SỐ LƯỢNG: {this.state.number}</Text>
-                    <Text style={{fontSize:18}}>TỔNG: {this.state.total} {this.props.navigation.getParam('id')}</Text>
+                    <Text style={{fontSize:18}}>TỔNG TIỀN: {this.state.total} </Text>
                 </View>
                 <TouchableOpacity style={{alignItems:'center', minHeight:50}} onPress={() => this.thanhtoan()}>
-                    <Text style={{backgroundColor: '#FF6699', width:'90%', textAlign:'center', justifyContent:'center', fontSize:18, borderRadius: 8, padding:10}}>XÁC NHẬN THANH TOÁN</Text>
+                    <Text style={styles.xacnhan}>XÁC NHẬN THANH TOÁN</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -164,17 +172,18 @@ const styles = StyleSheet.create({
         // paddingVertical: khoảng cách chữ so với trục ox
         borderColor: 'black',
         backgroundColor: 'lavender',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         margin: 10,
         // marginBottom: 0,
     },
     text_header: {
-        paddingLeft: 95,
+        // paddingLeft: 95,
+        marginLeft: 95,
+        textAlign: 'center',
         fontSize: 30,
         fontWeight: "bold",
         fontStyle: "italic",
         color: 'lightcoral',
-
     },
     image: {
         padding: 100,
@@ -198,7 +207,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     min_text: {
-        padding: 10,
+        padding: 5,
         fontSize: 20,
         fontWeight: "bold",
         color: "#009688"
@@ -221,9 +230,27 @@ const styles = StyleSheet.create({
         color: '#009688'
     },
     back: {
-        fontSize: 45,
+        fontSize: 30,
         paddingLeft: '2%',
+        paddingTop: 10,
         color: 'purple',
         // padding: 10,
     },
+    number: {
+        borderWidth: 1,
+        paddingLeft: 50,
+        paddingRight: 50,
+        borderRadius: 5,
+        alignItems:'center',
+        justifyContent:'center',
+        fontSize:23
+    },
+    xacnhan: {
+        backgroundColor: '#FF6699',
+        width:'90%',
+        textAlign:'center',
+        justifyContent:'center',
+        fontSize:18,
+        borderRadius: 8,
+        padding:10}
 })

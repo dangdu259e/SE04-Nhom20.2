@@ -28,7 +28,7 @@ export default class Splash extends Component{
     }
 
     //    hàm này gọi ngay sau hàm khởi tạo
-    async componentDidMount() {
+    componentDidMount() {
     // add amimation vào đây
 
         //cho sequence cho phép các hiệu ứng nối tiếp nhau

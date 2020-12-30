@@ -1,6 +1,6 @@
 from flask import request
 
-from ..Services import save_bill
+from ..Services import save_bill, save_payment
 from ..Entity_RN import entitybill
 from app import app
 
@@ -22,13 +22,21 @@ def save():
     note = request.form.get('note')
     id_user = request.form.get('id_user')
     id_cat = request.form.get('id_cat')
+    total_cost = request.form.get('total_cost')
+    print(total_cost)
+    print(id_cat)
     one = entitybill.bill_enti(name, phone, add, note, id_user, id_cat)
     if one.isNone():
         return {'status': 'not full'}
     else:
         stt = save_bill.save_bill(one)
-        print(id_cat)
-        return {'status': stt}
+        if stt == '200':
+            status, purchase_date, id_bill = save_payment.save_payment(total_cost, id_cat)
+    return {'status': status, 'purchase_date': purchase_date, 'id_bill': id_bill}
+
+
+# @app.route('/success')
+# def date_bill():
 
 
 

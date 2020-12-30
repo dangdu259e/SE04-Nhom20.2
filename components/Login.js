@@ -30,6 +30,7 @@ import Cat from './ListOfCats';
 import CatDetails from './CatDetails';
 import TFile from './TFile';
 import thanhtoan from './thanhtoan';
+import hoadon from './hoadon';
 
 const FBLoginButton = require('./FBLoginButton');
 // const ipv4Address = await NetworkInfo.getIPV4Address();
@@ -156,8 +157,8 @@ const AppNavigator= createStackNavigator(
       },
       CatDetail : CatDetails,
       Buy: TFile,
-      Thanhtoan: thanhtoan
-
+      Thanhtoan: thanhtoan,
+      Hoadon: hoadon
     },
     {
       initialRouteName: "Home",

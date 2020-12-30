@@ -1,13 +1,9 @@
 import {View, FlatList, Text, Image, TouchableOpacity, StyleSheet, RefreshControl, Alert} from 'react-native';
 import React, {Component} from 'react';
-
+import {url_getall} from '../URL-config'
 import CatDetails from './CatDetails'
-import TFile from './TFile';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import thanhtoan from './thanhtoan';
 
-// var url = 'http://192.168.1.103:5000'
-var url = 'http://172.19.200.109:5000'
+
 let mang = []
 class Cat extends Component {
     constructor(props) {
@@ -32,9 +28,7 @@ class Cat extends Component {
     // }
 
     componentDidMount() {
-        // 192.168.1.105
-        // const id = this.props.navigation.getParam('id')
-        fetch(url+'/all-cat?trang='+this.state.page)
+        fetch(url_getall+this.state.page)
             .then((response) => response.json())
             .then((json) => {
                 mang = json
@@ -56,7 +50,7 @@ class Cat extends Component {
 
     // load more
     _onEndReached() {
-        fetch('http://192.168.1.106:5000/all-cat?trang='+(this.state.page+1))
+        fetch(url_getall+(this.state.page+1))
             .then((response) => response.json())
             .then((json) => {
                 if (json.length !==0 ){
@@ -66,16 +60,6 @@ class Cat extends Component {
                         page: this.state.page + 1
                     })
                 }
-                // else {
-                //     Alert.alert(
-                //         "THONG BAO",
-                //         "DATA OVER",
-                //         [
-                //             { text: "OK", onPress: () => console.log("OK Pressed") }
-                //         ],
-                //     );
-                // }
-
             })
             .catch((error) => {
                 console.error(error);
@@ -92,7 +76,7 @@ class Cat extends Component {
                 <View style={{backgroundColor: 'ghostwhite'}} >
                     <View style={{flexDirection: 'row'}}>
                         <Text style={styles.text_header}>
-                            The most loved cats
+                            Được yêu thích nhất
                         </Text>
 
                         {/*<TouchableOpacity style={{flexDirection: 'row',}} >*/}
@@ -117,14 +101,13 @@ class Cat extends Component {
                                     <View style={styles.info}>
                                         <View style={styles.left}>
                                             <Image style={styles.imageLeft} source={{uri: item.img}}/>
-                                            <Text style={styles.min_text}>{item.id}</Text>
-                                            <Text style={styles.min_text}>tam thoi {this.state.id_listofcat}</Text>
+                                            <Text style={styles.min_text}>{item.name}</Text>
                                         </View>
                                         <View>
                                             {/*onPress={this.addThisProductToCart.bind(this)}>*/}
-                                            <TouchableOpacity style={styles.textTouch} onPress={() => {this.props.navigation.navigate('CatDetails', {data: item,});}}>
+                                            <TouchableOpacity style={styles.textTouch} onPress={() => {this.props.navigation.navigate('Buy', {data: item, id_listofcat: this.state.id_listofcat});}}>
                                                               {/* onPress={() => {this.props.navigation.navigate('Buy', {data: item});}}>*/}
-                                                <Text style={styles.min_text}>Buy</Text>
+                                                <Text style={styles.min_text}>Mua</Text>
                                             </TouchableOpacity>
                                         </View>
                                     </View>

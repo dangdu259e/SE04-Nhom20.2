@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
 import {Alert, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
-import { combineReducers } from 'redux';
-// import { sessionReducer } from 'redux-react-native-session';
-// const reducer = combineReducers(id_login);
+import {url_thanhtoan} from '../URL-config'
+import Moment from 'moment';
 
-var url = '172.19.200.109'  // 192.168.1.103
-let baseurl = 'http://172.19.200.109:5000/bill'
 export default class thanhtoan extends Component{
     static navigationOptions= {
         headerShown: false,
@@ -14,13 +11,14 @@ export default class thanhtoan extends Component{
         super(props);
         this.state= {
             id_user_thanhtoan: this.props.navigation.getParam('id_user_TF'),
-            // id_user_thanhtoan: reducer,
             name: '',
             phone: '',
             add: '',
             note: '',
             mess: '',
             id_cat: this.props.navigation.getParam('data').id,
+            total: this.props.navigation.getParam('total'),
+            number: this.props.navigation.getParam('number'),
         }
 
     }
@@ -41,50 +39,58 @@ export default class thanhtoan extends Component{
 
     }
 
-    componentDidMount() {
-        // const data = this.props.navigation.getParam('data')
-        // const id = this.props.navigation.getParam('id')
-        this.setState({
-            // id_cat: data.id,
-            // id_user: id
-        })
-    }
-
     payment = () => {
 
         var formdata = new FormData();
-        // form.append('id', this.state.id)
         formdata.append('name', this.state.name)
         formdata.append('phone', this.state.phone)
         formdata.append('add', this.state.add)
         formdata.append('note', this.state.note)
         formdata.append('id_user', this.state.id_user_thanhtoan)
         formdata.append('id_cat', this.state.id_cat)
+        formdata.append('total_cost', this.state.total)
 
-        fetch(baseurl, {
+        fetch(url_thanhtoan, {
             method: 'POST',
             body: formdata
         }).then((response) => response.json())
             .then((json) => {
-                // return json.movies;
                 if (json.status == '200') {
-                    this.setState({
-                        mess: 'ok',
-                    })
+                    // this.setState({
+                    //     mess: 'ok',
+                    // })
+                    const date = json.purchase_date
+                    const id_bill = json.id_bill
+                    Alert.alert(
+                        "",
+                        "Thanh toán thành công",
+                        [
+                            // {
+                            //     text: "Cancel",
+                            //     onPress: () => console.log("Cancel Pressed"),
+                            //     style: "cancel"
+                            // },
+                            { text: "OK", onPress: () =>
+                                    this.props.navigation.navigate('Hoadon',
+                                        {data: this.props.navigation.getParam('data'),
+                                            id_user_TF: this.state.id_user_TF, total: this.state.total,
+                                            number: this.state.number, date: date, id_bill: id_bill})}
+                        ],
+                        { cancelable: false }
+                    );
                 } else if (json.status === 'not full') {
-                    Alert.alert("please fill all")
+                    Alert.alert("Please fill all")
                 } else {
-                    this.setState({
-                        mess: 'not ok'
-                    })
+                    // this.setState({
+                    //     mess: 'not ok'
+                    // })
+                    console.log('done')
                 }
-                console.log('done!!!!!!!!!!!!!!!!!')
+                // console.log('done!!!!!!!!!!!!!!!!!')
             })
             .catch((error) => {
                 console.error(error);
             });
-        // console.log(this.state.id_user)
-        // console.log(this.state.id_cat)
         console.log(this.state.id_user_thanhtoan)
 
     }
@@ -99,14 +105,13 @@ export default class thanhtoan extends Component{
 
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Text style={styles.header}>Thông tin thanh toán{this.state.id_cat}-{this.state.id_user}</Text>
-                    <Text>{this.state.id_user_thanhtoan}</Text>
+                    <Text style={styles.header}>Thông tin thanh toán</Text>
                 </View>
                 <View style={{alignItems:'center'}}>
                     <Devider style={styles.devidertop}/>
                 </View>
                 <View style={styles.body}>
-                    <Text>Họ và tên: {this.state.id_cat}</Text>
+                    <Text>Họ và tên:</Text>
                     <TextInput
                         placeholder={"Fill here"}
                         onChangeText={this.handleName}
@@ -147,7 +152,6 @@ export default class thanhtoan extends Component{
                 <TouchableOpacity style={{alignItems:'center',marginTop:20}} onPress={() => { this.props.navigation.goBack()}}>
                     <View >
                         <Text>Cancel</Text>
-                        <Text>{this.state.mess}</Text>
                     </View>
                 </TouchableOpacity>
             </View>
