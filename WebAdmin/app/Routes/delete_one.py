@@ -25,6 +25,6 @@ def go_delete():
     response = requests.post(url, data=data)
     status = response.text
     if status == '200':
-        return redirect(url_for('all'))
+        return redirect(url_for('allCat'))
     else:
         return render_template('error.html')

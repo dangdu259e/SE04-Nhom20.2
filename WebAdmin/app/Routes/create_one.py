@@ -1,6 +1,6 @@
 import requests
 from flask import render_template, request, redirect, url_for
-from app_thuna import app
+from app import app
 
 
 @app.route('/go-create')
@@ -36,6 +36,6 @@ def created():
     response = requests.post(url, data=cat)
     stt = response.text
     if stt == '200':
-        return redirect(url_for('all'))
+        return redirect(url_for('allCat'))
     else:
         return render_template('error.html')

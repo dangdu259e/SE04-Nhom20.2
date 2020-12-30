@@ -39,31 +39,31 @@
     </header>
 
     <div class="container-lgm">
-            <h1>Delete Account</h1>
-            <form action="/save_delete_account" method="POST" >
+            <h1>Create User Account</h1>
+            <form action="/save_create_account" method="POST" >
                         <div class="form-group">
                             <label for="newname">Email address</label>
-                            <input type="email" class="form-control" name="newemail" aria-describedby="emailHelp" placeholder={{ account.username }} required>
+                            <input type="email" class="form-control" name="newemail" aria-describedby="emailHelp" >
                         </div>
 
                         <div class="form-group">
                             <label for="newpassword">Password</label>
-                            <input type="password" class="form-control" name="newpassword" value={{ account.password }} readonly>
+                            <input type="password" class="form-control" name="newpassword" >
                         </div>
 
                         <div class="form-group">
                             <label for="newname">Name</label>
-                            <input type="text" class="form-control" name="newname" value={{ account.name }} readonly>
+                            <input type="text" class="form-control" name="newname">
                         </div>
 
                         <div class="form-group">
                             <label for="newadd">Add</label>
-                            <input type="text" class="form-control" name="newadd" value={{ account.add }} readonly>
+                            <input type="text" class="form-control" name="newadd">
                         </div>
 
                         <div class="form-group">
                             <label for="newphone">Phone</label>
-                            <input type="text" class="form-control" name="newphone" value={{ account.phone }} readonly>
+                            <input type="text" class="form-control" name="newphone">
                         </div>
 
 
@@ -73,11 +73,8 @@
                             <label for="exampleCheck1">User</label>
                             <input type="radio" class="form-check-input" name="checkAccount" id="checkAccount" value="useraccount">
 
-                            <label for="exampleCheck1">Admin</label>
-                            <input type="radio" class="form-check-input" name="checkAccount" id="checkAccount" value="adminaccount">
-
                         </div>
-                        <button type="submit" class="btn-primary">Accept delete</button>
+                        <button type="submit" class="btn-primary">Update</button>
                         <hr  width="70%" size="5px" align="center" color="black" />
                         <a href="{{url_for('getallaccount')}}" class="cancela">Cancel</a>
                     </form>

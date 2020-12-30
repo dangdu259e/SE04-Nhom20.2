@@ -1,0 +1,5 @@
+HOST = 'localhost'
+USER = 'root'
+PASSWORD = '1234'
+DB = 'se04'
+CHARSET = 'utf8mb4'

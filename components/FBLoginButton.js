@@ -6,7 +6,7 @@ import {COLOR_LIGHT_RED} from './myColor';
 export default class FBLoginButton extends Component {
     render() {
         return (
-            <View>
+            <View style={{justifyContent:'center', alignItems:'center'}}>
                 <LoginButton style={styles.login}
                     publishPermissions={["email"]}
                     onLoginFinished={
@@ -28,7 +28,9 @@ export default class FBLoginButton extends Component {
 const styles = StyleSheet.create({
     login:{
         width: 300,
-        height: 45,
+        // height: 45,
+        fontSize: 20,
+        padding: 20,
         borderRadius:60,
         textAlign: 'center',
         justifyContent: 'center',

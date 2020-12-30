@@ -19,22 +19,22 @@
             </div>
 
             <ul class="nav navbar-nav">
-{# link #}                <li><a href="#">Home</a></li>
-                <li class="active"><a href="#">All User</a></li>
-                <li><a href="#">Info Cat</a></li>
+                <li ><a href="{{url_for('homepage')}}">Home</a></li>
+                <li><a href="{{url_for('getallaccount')}}">All User</a></li>
+                <li><a class="active" href="#">Info Cat</a></li>
                 <li><a href="#">Store</a></li>
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Support <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="#">Email</a></li>
                     <li><a href="#">Phone</a></li>
-                    <li><a href="#">Facebook</a></li>
+                    <li><a href="https://www.facebook.com/t.dudang/">Facebook</a></li>
                 </ul>
                 </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> Account</a></li>
-{#                <li><a href="{{url_for('logoutAccount')}}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>#}
+                <li><a href="{{url_for('logoutAccount')}}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
             </ul>
             </div>
         </nav>
@@ -59,8 +59,8 @@
                 {% for line in posts %}
                     <tr>
 
-                        <td style="width: 600px">
-                            <img style="height: 60%" src="{{ line.img }}"/>
+                        <td style="min-width: 500px; min-height: 300px; max-height: 300px; max-width: 500px">
+                            <img style="min-width: 500px; min-height: 300px; max-height: 300px; max-width: 500px; height: 60%" src="{{ line.img }}"/>
                         </td>
                         <td style="max-width: 400px">
                             <p><b>ID:</b> {{ line.id }} </p>
@@ -90,7 +90,7 @@
             </div>
 
            <div>
-               <a href="{{ url_for('create') }}">abc</a>
+               <a href="{{ url_for('create') }}">create cat</a>
            </div>
             <!-- follow me template -->
         <div class="labelbot">

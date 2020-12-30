@@ -2,7 +2,8 @@ import random
 
 from pymysql import DatabaseError
 
-from ..Services import db_connection
+from app.Entity.cat import Cat
+from app.Services import db_connection
 
 
 def add_data(one):

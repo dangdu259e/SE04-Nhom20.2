@@ -7,7 +7,7 @@ import {
     Animated,
     Dimensions
 } from 'react-native';
-import {COLOR_DARK_RED, COLOR_GRAY, COLOR_LIGHT_RED} from './myColor'
+import {COLOR_DARK_RED, COLOR_GRAY, COLOR_LIGHT_RED, backco} from './myColor'
 
 import { YellowBox, LogBox } from 'react-native';
 
@@ -62,7 +62,7 @@ const styles= StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor:COLOR_DARK_RED
+        backgroundColor:backco,
     },
     logo: {
         width: 150,

@@ -12,6 +12,7 @@
 //https://vntalking.com/react-native-phan-biet-props-va-state-don-gian-de-hieu.html
 import React,{Component} from 'react';
 
+import { NetworkInfo } from "react-native-network-info";
 import {
   StyleSheet,
   View,
@@ -19,9 +20,10 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  TouchableWithoutFeedback, Keyboard,
+
+  TouchableWithoutFeedback, Keyboard, Alert
 } from 'react-native';
-import {COLOR_DARK_RED, COLOR_GRAY, COLOR_LIGHT_RED} from './myColor'
+import {COLOR_DARK_RED, COLOR_GRAY, COLOR_LIGHT_RED, backco} from './myColor'
 import {  createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack'
 
@@ -31,10 +33,14 @@ import CatDetails from './CatDetails';
 import TFile from './TFile';
 import thanhtoan from './thanhtoan';
 import hoadon from './hoadon';
+import ListOfCats from "./ListOfCats";
+import ForgotPassword from "./ForgotPassword";
+import CreateAccount from "./CreateAccount";
+import ResetPassword from "./ResetPassword";
+import TabNav from "./TabNav";
 
 const FBLoginButton = require('./FBLoginButton');
-// const ipv4Address = await NetworkInfo.getIPV4Address();
-
+let baseUrl = 'http://192.168.1.10'+':5000/api/login/user/';
 class Login extends Component{
   static navigationOptions= {
     headerShown: false,
@@ -53,17 +59,31 @@ class Login extends Component{
   }
 
   handleEmail= (text)=>{
+  constructor() {
+    super();
+    this.state= {
+      email:'',
+      password: '',
+      kq: 'KET QUA'
+  }
+
+  }
+  handleEmail=(text)=>{
     this.setState({email: text})
 
   }
-  handlePassword= (text)=>{
+  handlePassword=(text)=>{
     this.setState({password: text})
 
   }
-  login = async (email, password) => {
-    let formData = new FormData();
-    formData.append('email', email);
-    formData.append('password', password);
+  checkLogin =  () =>{
+    if(this.state.email == '' && this.state.email==''){
+      alert('Mời bạn nhập đầy đủ Email và Password')
+    }else {
+      let formdata = new FormData();
+      formdata.append('email', this.state.email);
+      formdata.append('password', this.state.password);
+      console.log(formdata)
 
     let res = await fetch(this.state.baseUrl,{
       method: 'POST',
@@ -77,8 +97,26 @@ class Login extends Component{
         .catch((error) => {
           console.error('Error:', error);
         });
+      fetch(baseUrl, {
+        method: 'POST',
+        body: formdata
+      }).then((response) => response.json())
+          .then((responseJson) => {
+            var a = responseJson.Status;
+            console.log('status: ' + a)
+            if (a === 'Success') {
+              console.log('Login thành công: ' + 'email: ' + this.state.email + "/" + "password: " + this.state.password);
+              return this.props.navigation.navigate('Profile');
+            } else {
+              console.log('Login khong thanh cong: ' + 'email: ' + this.state.email + "/" + "password: " + this.state.password);
+              Alert.alert('Tài khoản hoặc mật khẩu của bạn chưa chính xác');
+            }
+          })
+          .catch((error) => {
+            console.error(error)
+          })
+    }
   }
-
   render(){
     const Devider = (props) =>{
       return <View {...props}>
@@ -93,7 +131,7 @@ class Login extends Component{
 
             <View style={styles.up}>
               <Animated.Image source={require("../images/logocat.png")}
-                     style={styles.logo}/>
+                              style={styles.logo}/>
               <Text style={styles.title}>
                 Please Login
               </Text>
@@ -101,13 +139,14 @@ class Login extends Component{
 
             <View style={styles.down}>
               <View style={styles.textInputContainer}>
-                  <TextInput
-                      style={styles.textInput}
-                      textContentType={'emailAddress'}
-                      keyboardType={'email-address'}
-                      placeholder={"Enter your email"}
-                      onChangeText={this.handleEmail}>
-                  </TextInput>
+                <TextInput
+                    style={styles.textInput}
+                    textContentType={'emailAddress'}
+                    keyboardType={'email-address'}
+                    placeholder={"Enter your email"}
+                    onChangeText={this.handleEmail}
+                    value={this.state.email}
+                />
               </View>
 
               <View style={styles.textInputContainer}>
@@ -116,6 +155,7 @@ class Login extends Component{
                     secureTextEntry={true}
                     placeholder={"Enter your password"}
                     onChangeText={this.handlePassword}
+                    value={this.state.password}
                 />
               </View>
 
@@ -129,6 +169,9 @@ class Login extends Component{
                     //   () =>alert(this.state.status)
                     //   // ()=> this.login(this.state.email, this.state.password)
                     // }
+                                  title="Login"
+                                  // onPress={() => this.props.navigation.navigate('Profile')}
+                                  onPress={()=> {this.checkLogin()}}
                 >
                   <Text style={styles.loginButtonTitle}>Login </Text>
                 </TouchableOpacity>
@@ -136,15 +179,30 @@ class Login extends Component{
 
               <Devider style={styles.devider}>
               </Devider>
-              <View>
+              <View style={{justifyContent:'center', alignItems:'center'}}>
                 <FBLoginButton />
+              </View>
+              <View style={{flex: 1, flexDirection:'row', marginTop:20}}>
+                <TouchableOpacity
+                    style={styles.btnforgotPassword}
+                    onPress={()=> this.props.navigation.navigate('ForgotPassword')}
+                >
+                    <Text>Forgot password </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.btncreateAccount}
+                    onPress={()=> this.props.navigation.navigate('CreateAccount')}
+
+                >
+                    <Text>Create Account </Text>
+                </TouchableOpacity>
               </View>
             </View>
           </View>
         </TouchableWithoutFeedback>
 
     )
-}}
+  }}
 const AppNavigator= createStackNavigator(
     {
       Home: {
@@ -159,6 +217,18 @@ const AppNavigator= createStackNavigator(
       Buy: TFile,
       Thanhtoan: thanhtoan,
       Hoadon: hoadon
+      ForgotPassword:{
+        screen: ForgotPassword,
+        navigationOptions: {headerShown: false}
+      },
+      ResetPassword:{
+        screen: ResetPassword,
+        navigationOptions: {headerShown: false}
+      },
+      CreateAccount:{
+        screen: CreateAccount,
+        navigationOptions: {headerShown: false}
+      }
     },
     {
       initialRouteName: "Home",
@@ -177,7 +247,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'stretch',
-    backgroundColor: COLOR_DARK_RED,
+    backgroundColor: backco,
 
   },
   up:{
@@ -196,7 +266,8 @@ const styles = StyleSheet.create({
     color:'green'
   },
   title:{
-    color: 'white',
+    marginTop:15,
+    color: 'black',
     textAlign: 'center',
     width: 400,
     fontSize: 28,
@@ -217,11 +288,15 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     justifyContent: 'center',
     alignItems: 'center',
+    textAlign: 'center',
     backgroundColor: COLOR_LIGHT_RED,
   },
   loginButtonTitle:{
     fontSize: 18,
-    color: 'white'
+    color: 'white',
+    alignItems: 'center',
+    textAlign: 'center',
+    justifyContent:'center',
   },
   facebookButton:{
     width: 300,
@@ -257,6 +332,14 @@ const styles = StyleSheet.create({
     height: 100,
     fontSize: 20,
   },
+  btnforgotPassword:{
+    marginRight: 34,
+    padding: 1,
+  },
+  btncreateAccount:{
+    marginLeft: 34,
+    padding: 1,
 
+  }
 });
 // AppRegistry.registerComponent('Login', () => Login)

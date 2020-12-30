@@ -1,7 +1,6 @@
 from pymysql import DatabaseError
 
-from ..Services import db_connection
-
+from app.Services import db_connection
 
 def update_data(id, name, gender, origin, type, price, features, quantity, img, guide, old_id):
     conn = db_connection.ConnectionDB()

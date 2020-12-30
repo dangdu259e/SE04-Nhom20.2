@@ -1,9 +1,8 @@
 import json
 from flask import request
 from app import app
-from ..Services import add_one
-from ..Entity import cat
-
+from app.Services import add_one
+from app.Entity import cat
 
 @app.route('/add_one', methods=['POST'])
 def add():

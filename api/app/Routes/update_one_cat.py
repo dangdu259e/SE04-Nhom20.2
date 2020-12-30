@@ -1,7 +1,6 @@
 from flask import request
 from app import app
-from ..Services import update_one
-
+from app.Services import update_one
 
 @app.route('/update-cat', methods=['POST'])
 def update():

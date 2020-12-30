@@ -27,4 +27,3 @@ def loginadmin():
         return render_template('home.html')
     else:
         return render_template('error.html')
-

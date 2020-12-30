@@ -17,9 +17,9 @@
             </div>
 
             <ul class="nav navbar-nav">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">All User</a></li>
-                <li><a href="#">Info Cat</a></li>
+                <li><a href="{{url_for('homepage')}}">Home</a></li>
+                <li><a href="{{url_for('getallaccount')}}">All User</a></li>
+                <li><a href="{{url_for('allCat')}}">Info Cat</a></li>
                 <li><a href="#">Store</a></li>
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Support <span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -92,18 +92,18 @@
                         </div>
 
 
-                        <div class="form-check">
-
-                            <label for="exampleCheck1">User</label>
-                            <input type="radio" class="form-check-input" name="checkAccount" id="checkAccount" value="useraccount">
-
-                            <label for="exampleCheck1">Admin</label>
-                            <input type="radio" class="form-check-input" name="checkAccount" id="checkAccount" value="adminaccount">
-
-                        </div>
+{#                        <div class="form-check">#}
+{##}
+{#                            <label for="exampleCheck1">User</label>#}
+{#                            <input type="radio" class="form-check-input" name="checkAccount" id="checkAccount" value="useraccount">#}
+{##}
+{#                            <label for="exampleCheck1">Admin</label>#}
+{#                            <input type="radio" class="form-check-input" name="checkAccount" id="checkAccount" value="adminaccount">#}
+{##}
+{#                        </div>#}
                         <button type="submit" class="btn-primary">Update</button>
                         <hr  width="70%" size="5px" align="center" color="black" />
-                        <a href="{{ url_for('all') }}" class="cancela">Cancel</a>
+                        <a href="{{ url_for('allCat') }}" class="cancela">Cancel</a>
                     </form>
 
     </div>

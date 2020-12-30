@@ -5,32 +5,49 @@ from ..Services import ServiceDeleteAccount
 
 @app.route('/api/login/user/', methods=['POST'])
 def loginuser():
-    # email = request.args.get('email', None)
-    # # print(request)
-    # # print(email)
-    # password = request.args.get('password', None)
     email = request.form.get('email')
     password = request.form.get('password')
     result = ServiceUser.check_Login(email, password)
     if(result.get('Status')=='Success'):
-        print(result)
         return jsonify(result), 200
     else:
-        print(result)
         return jsonify(result), 404
+
+@app.route('/api/check/account/', methods=['POST'])
+def checkaccount():
+    email = request.form.get('email')
+    phone = request.form.get('phone')
+    result = ServiceUser.check_account(email, phone)
+    if(result.get('Status')=='Success'):
+        return jsonify(result), 200
+    else:
+        return jsonify(result), 404
+
+@app.route('/api/create/user/', methods=['POST'])
+def creatuser():
+    print('da toi day')
+    email = request.form.get('email')
+    password = request.form.get('password')
+    name = request.form.get('name')
+    phone = request.form.get('phone')
+    result = ServiceUser.create_user(email, password, name, phone)
+    print(result)
+    print(type(result))
+    if (result.get('Status') == 'Success'):
+        return jsonify(result), 200
+    else:
+        return jsonify(result), 404
+
+
 
 @app.route('/api/insert/user/', methods=['POST'])
 def insertuser():
-    # email = request.args.get('email', None)
-    # password = request.args.get('password', None)
     email = request.form.get('email')
     password = request.form.get('password')
     result = ServiceUser.insert_user(email, password)
     if (result.get('Status') == 'Success'):
-        print(result)
         return jsonify(result), 200
     else:
-        print(result)
         return jsonify(result), 404
 
 @app.route('/api/get_all_user', methods=['GET'])
@@ -42,6 +59,16 @@ def getalluser():
         temp = {i: list[i]}
         dic.update(temp)
     return dic
+
+@app.route('/api/reset/password-account', methods=['POST'])
+def resetpassworduser():
+    id = request.form.get('id')
+    password = request.form.get('password')
+    result = ServiceUser.resetPassword(id,password)
+    if (result == 'Success'):
+        return 'Success', 200
+    else:
+        return 'Invalid', 404
 
 @app.route('/api/delete_account_user', methods=['POST'])
 def deleteaccountuser():
