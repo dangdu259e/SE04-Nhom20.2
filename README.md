@@ -20,10 +20,10 @@
 ###### - Anh: [Nguyễn Quan Tuấn](https://www.facebook.com/nguyenquan.tuan.5).
 
 ## :large_blue_diamond: **Thành viên nhóm**
-    1) Đặng Trung Du
-    2) Nguyễn Anh Thư
-    3) Nguyễn Văn Quyết
-    4) Nguyễn Tùng Dương
+#### 1) [Đặng Trung Du](https://www.facebook.com/t.dudang/)
+#### 2) [Nguyễn Anh Thư](https://www.facebook.com/profile.php?id=100017848988200)
+###### 3) Nguyễn Văn Quyết
+###### 4) Nguyễn Tùng Dương
     
 ## Mục tiêu
     - Giúp việc bán hàng online trở nên dễ dàng hơn, giúp giảm thiểu thời gian tìm kiếm của khách hàng.
