@@ -27,7 +27,7 @@ class CatDetails extends React.Component{
     componentDidMount() {
         const data = this.props.navigation.getParam('data');
         a = this.state.obj.concat(data)
-        console.log("id cat detail "+ this.state.id_catDetail)
+        console.log("id cat detail "+ this.state.id_catDetails)
         this.setState({
             arr: data,
             obj: a
