@@ -23,17 +23,21 @@ def save():
     id_user = request.form.get('id_user')
     id_cat = request.form.get('id_cat')
     total_cost = request.form.get('total_cost')
+    number = int(request.form.get('number'))
     print(total_cost)
     print(id_cat)
     print(id_user)
+    print(number)
     one = entitybill.bill_enti(name, phone, add, note, id_user, id_cat)
     if one.isNone():
         return {'status': 'not full'}
     else:
         stt = save_bill.save_bill(one)
         if stt == '200':
-            status, purchase_date, id_bill = save_payment.save_payment(total_cost, id_cat)
-    return {'status': status, 'purchase_date': purchase_date, 'id_bill': id_bill}
+            status, purchase_date, id_bill = save_payment.save_payment(total_cost, id_cat, number)
+            return {'status': status, 'purchase_date': purchase_date, 'id_bill': id_bill}
+        return {'status': stt, 'purchase_date': "None", 'id_bill': "None"}
+
 
 
 # @app.route('/success')

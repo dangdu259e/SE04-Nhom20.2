@@ -20,7 +20,7 @@
 
             <ul class="nav navbar-nav">
                 <li><a href="{{url_for('homepage')}}">Home</a></li>
-                <li class="active"><a href="#">All User</a></li>
+{#                <li class="active"><a href="#">All User</a></li>#}
                 <li><a href="{{url_for('allCat')}}">Info Cat</a></li>
                 <li><a href="#">Store</a></li>
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Support <span class="caret"></span></a>
@@ -39,21 +39,23 @@
             </div>
         </nav>
     </header>
-    
+
     <div class="container-lgm">
             <!--for demo wrap-->
-            <h1>All User Account</h1>
+            <h1>All Bills</h1>
 
             <div class="tbl-content" style=" height: 600px; overflow:auto;">
               <table cellpadding="0" cellspacing="0" border="0" class="w3-table-all w3-hoverable">
               <thead>
                   <tr>
                     <th>ID</th>
-                    <th>Username</th>
-                    <th>Password</th>
                     <th>Name</th>
-                    <th>Add</th>
                     <th>Phone</th>
+                    <th>Address</th>
+                    <th>Note</th>
+                    <th>Id User</th>
+                    <th>Id Cat</th>
+                    <th>Id Payment</th>
 {#                    <th> ~~~~~~~~~ </th>#}
                   </tr>
                 </thead>
@@ -61,11 +63,13 @@
                 {% for line in data %}
                     <tr>
                         <td>{{ line.id }}</td>
-                        <td>{{ line.username }} </td>
-                        <td>{{ line.password }}</td>
-                        <td>{{ line.name }}</td>
-                        <td>{{ line.add }}</td>
+                        <td>{{ line.name }} </td>
                         <td>{{ line.phone }}</td>
+                        <td>{{ line.address }}</td>
+                        <td>{{ line.note }}</td>
+                        <td>{{ line.id_user }}</td>
+                        <td>{{ line.id_cat }}</td>
+                        <td>{{ line.id_payment }}</td>
 {#                        <td>#}
 {#                            <a class='btnupdate' href={{ url_for('updateaccount', id = line.id, username=line.username, password=line.password, name=line.name, add=line.add,  phone=line.phone ) }}>Update</a>#}
 {#                            <a class='btndelete' href={{ url_for('deleteAccount',id = line.id, username=line.username, password=line.password, name=line.name, add=line.add,  phone=line.phone ) }}>Delete</a>#}
@@ -75,10 +79,6 @@
                 </tbody>
               </table>
             </div>
-{#            <div>#}
-{#               <a href="{{ url_for('create_account') }}">create account</a>#}
-{#            </div>#}
-          <!-- follow me template -->
           <div class="labelbot">
               <label>&Omega;  Web admin quản lý dữ liệu  &Omega;</label>
           </div>

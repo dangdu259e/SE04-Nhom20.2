@@ -9,3 +9,4 @@ from app.Routes.LoginAdmin import *
 from app.Routes.Logout import *
 from app.Routes.update_one import *
 from app.Routes.UpdateAccount import *
+from app.Routes.get_bill import *

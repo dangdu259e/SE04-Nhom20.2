@@ -36,13 +36,15 @@ def find_id_payment():
         return kq[-1].get('id')
 # print(find_id_payment())
 
-def save_payment(total_cost, id_cat):
+
+def save_payment(total_cost, id_cat, number):
     conn = db_connection.ConnectionDB()
     status = '200'
     try:
         purchase_date = str(datetime.now()).split('.')[0]
 
         print(purchase_date)
+        print(number)
         id_bill = find()
         with conn.cursor() as cursor:
             # sql = "INSERT INTO `payment` (`id_bill`, `purchase_date`, `total_cost`) " \
@@ -50,7 +52,7 @@ def save_payment(total_cost, id_cat):
             sql = "INSERT INTO `payment` (`id_bill`, `purchase_date`, `total_cost`) VALUES ({}, '{}', {})"\
                 .format(id_bill, purchase_date, total_cost)
             cursor.execute(sql)
-            sql_next = "UPDATE `cat` SET `quantity`=`quantity`-1 WHERE  `id`='{}'".format(id_cat)
+            sql_next = "UPDATE `cat` SET `quantity`=`quantity`-'{}' WHERE  `id`='{}'".format(number, id_cat)
             cursor.execute(sql_next)
         conn.commit()
 
