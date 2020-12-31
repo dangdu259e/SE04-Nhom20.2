@@ -7,60 +7,91 @@
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import flatListData from './AllOfCatsDatas'
 import Slider from './Slider';
-import Data from './InfoOfCatDatas'
 
-class Cat extends React.Component{
-    constructor() {
-        super();
+let a = []
+class CatDetails extends React.Component{
+    constructor(props) {
+        super(props);
         this.state = {
-            num:0
+            num:0,
+            obj: [],
+            arr: {},
+            id_catDetails: this.props.navigation.getParam('id_listofcat')
+
         }
     }
-    // static navigationOptions= {
-    //     headerShown: false,
-    // }
-
-    click() {
+    static navigationOptions= {
+        headerShown: false,
+    }
+    componentDidMount() {
+        const data = this.props.navigation.getParam('data');
+        a = this.state.obj.concat(data)
+        console.log("id cat detail "+ this.state.id_catDetail)
         this.setState({
-            num:this.state.num+1
+            arr: data,
+            obj: a
         })
     }
 
+    // addProductToCart(product) {
+    //     this.setState({
+    //         cart: this.state.cart.concat(product)
+    //     })
+    // }
+    //
+    // addThisProductToCart() {
+    //     const product = this.props;
+    //     global.addProductToCart(product);
+    // }
+    //
+    // click() {
+    //     this.setState({
+    //         num:this.state.num+1
+    //     })
+    // }
+
     render() {
+        // const receivedValue = this.props.navigation.getParam('receivedValue', () => {});
         return (
             <View style={styles.container}>
 
-                <View style={{flex: 1}}>
-                    <TouchableOpacity style={{flexDirection: 'row'}}>
-                        <Ionicons name="cart-outline" style={styles.cart}/>
-                        <Text style={{color: 'red', fontWeight: 'bold'}}>{this.state.num}</Text>
+                <View style={{flex: 1, flexDirection: 'row', paddingTop: '2%'}}>
+                    <TouchableOpacity style={{flexDirection: 'row'}} onPress={() => { this.props.navigation.goBack()}}>
+                        <Ionicons name='arrow-undo' style={styles.back}/>
+                        {/*<Text style={styles.back}>Back</Text>*/}
                     </TouchableOpacity>
+                    {/*<TouchableOpacity style={{flexDirection: 'row'}}>*/}
+                    {/*    <Ionicons name="cart-outline" style={styles.cart}/>*/}
+                    {/*    <Text style={{color: 'red', fontWeight: 'bold'}}>{this.state.cart.length}</Text>*/}
+                    {/*</TouchableOpacity>*/}
                 </View>
 
                 {/*View of image*/}
-                <Slider flatListData={Data}/>
+                {/*<Slider flatListData={Data}/>*/}
+                <Slider flatListData={this.state.obj}/>
 
                 {/*View of info*/}
                 <View style={{flex: 7}}>
                     <View style={styles.viewcost}>
-                        <Text style={styles.cost}>GIÁ BÁN:  </Text>
+                        <Text style={styles.cost}>GIÁ BÁN: {this.state.arr.price} </Text>
                     </View>
 
                     {/*view for details: name, kind of cat*/}
                     <View style={styles.textBox}>
-                        <Text style={styles.textInBox}>Tên:</Text>
-                        <Text style={styles.textInBox}>Giống:</Text>
-                        <Text style={styles.textInBox}>Nguồn gốc:</Text>
-                        <Text style={styles.textInBox}>Đặc điểm:</Text>
-                        <Text style={styles.textInBox}>Hướng dẫn nuôi:</Text>
+                        <Text style={styles.textInBox}>Tên: {this.state.arr.name}</Text>
+                        <Text style={styles.textInBox}>Giống: {this.state.arr.gender}</Text>
+                        <Text style={styles.textInBox}>Nguồn gốc: {this.state.arr.origin}</Text>
+                        <Text style={styles.textInBox}>Đặc điểm: {this.state.arr.features}</Text>
+                        <Text style={styles.textInBox}>Hướng dẫn nuôi: {this.state.arr.guide}</Text>
                     </View>
                 </View>
                 {/*view for button buy*/}
                 <View style={styles.viewofbutton}>
-                    <TouchableOpacity style={styles.button} onPress={ () => {this.click()} }>
-                        <Text style={styles.text_butt}>Add to cart</Text>
+                    {/*onPress={this.addThisProductToCart.bind(this)}>*/}
+                    <TouchableOpacity style={styles.button}
+                                      onPress={() => {this.props.navigation.navigate('Buy', {data: this.state.arr, id_catDetail: this.state.id_catDetails})}}>
+                        <Text style={styles.text_butt} >Buy now</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -68,7 +99,7 @@ class Cat extends React.Component{
     }
 }
 
-export default Cat
+export default CatDetails
 
 const styles = StyleSheet.create({
     container: {
@@ -78,8 +109,14 @@ const styles = StyleSheet.create({
     },
     cart: {
         fontSize: 45,
-        paddingLeft: '80%',
+        paddingLeft: '70%',
         color: 'orange'
+    },
+    back: {
+        fontSize: 45,
+        paddingLeft: '2%',
+        color: 'purple',
+        // padding: 10,
     },
     viewcost: {
         justifyContent: 'center',
@@ -90,12 +127,14 @@ const styles = StyleSheet.create({
     },
     cost: {
         fontWeight: 'bold',
+        fontSize: 16
     },
     textBox: {
-        backgroundColor: 'lavender'
+        backgroundColor: 'lavender',
     },
     textInBox: {
-        margin: 20,
+        margin: 15,
+        fontSize: 16,
     },
     viewofbutton: {
         flex: 1.25,
@@ -115,5 +154,24 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 20,
         color: "#009688"
-    }
+    },
+
 })
+
+// const AppNavigator = createStackNavigator(
+//     {
+//         Home: CatDetails,
+//         Buy: TFile
+//     },
+//     {
+//         initialRouteName: "Home"
+//     }
+// );
+//
+// const AppContainer = createAppContainer(AppNavigator);
+//
+// export default class App extends React.Component {
+//     render() {
+//         return <AppContainer />;
+//     }
+// }

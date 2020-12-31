@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update User</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/stylePageUpdateAccount.css') }}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <header class="menubar" style="font-size: 20px;">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#" style="font-size: 26px; color: #1e62d0">Cat Store</a>
+            </div>
+
+            <ul class="nav navbar-nav">
+                <li><a href="{{url_for('homepage')}}">Home</a></li>
+                <li><a href="{{url_for('getallaccount')}}">All User</a></li>
+                <li><a href="{{url_for('allCat')}}">Info Cat</a></li>
+                <li><a href="#">Store</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Support <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Email</a></li>
+                    <li><a href="#">Phone</a></li>
+                    <li><a href="#">Facebook</a></li>
+                </ul>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Account</a></li>
+                <li><a href="{{url_for('logoutAccount')}}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container-lgm">
+            <h1>Create User Account</h1>
+            <form action="/save_create_account" method="POST" >
+                        <div class="form-group">
+                            <label for="newname">Email address</label>
+                            <input type="email" class="form-control" name="newemail" aria-describedby="emailHelp" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newpassword">Password</label>
+                            <input type="password" class="form-control" name="newpassword" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newname">Name</label>
+                            <input type="text" class="form-control" name="newname">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newadd">Add</label>
+                            <input type="text" class="form-control" name="newadd">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newphone">Phone</label>
+                            <input type="text" class="form-control" name="newphone">
+                        </div>
+
+
+
+                        <div class="form-check">
+
+                            <label for="exampleCheck1">User</label>
+                            <input type="radio" class="form-check-input" name="checkAccount" id="checkAccount" value="useraccount">
+
+                        </div>
+                        <button type="submit" class="btn-primary">Update</button>
+                        <hr  width="70%" size="5px" align="center" color="black" />
+                        <a href="{{url_for('getallaccount')}}" class="cancela">Cancel</a>
+                    </form>
+
+    </div>
+    <div class="labelbot">
+        <label>&Omega;  Web admin quản lý dữ liệu  &Omega;</label>
+    </div>
+</body>
+</html>

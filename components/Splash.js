@@ -7,7 +7,7 @@ import {
     Animated,
     Dimensions
 } from 'react-native';
-import {COLOR_DARK_RED, COLOR_GRAY, COLOR_LIGHT_RED} from './myColor'
+import {COLOR_DARK_RED, COLOR_GRAY, COLOR_LIGHT_RED, backco} from './myColor'
 
 import { YellowBox, LogBox } from 'react-native';
 
@@ -28,7 +28,7 @@ export default class Splash extends Component{
     }
 
     //    hàm này gọi ngay sau hàm khởi tạo
-    async componentDidMount() {
+    componentDidMount() {
     // add amimation vào đây
 
         //cho sequence cho phép các hiệu ứng nối tiếp nhau
@@ -62,7 +62,7 @@ const styles= StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor:COLOR_DARK_RED
+        backgroundColor:backco,
     },
     logo: {
         width: 150,
