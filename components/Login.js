@@ -33,13 +33,17 @@ import CatDetails from './CatDetails';
 import TFile from './TFile';
 import thanhtoan from './thanhtoan';
 import hoadon from './hoadon';
-import ListOfCats from "./ListOfCats";
+
 import ForgotPassword from "./ForgotPassword";
 import CreateAccount from "./CreateAccount";
 import ResetPassword from "./ResetPassword";
 import {url_login} from "../URL-config";
 
-import TabNav from "./TabNav";
+import { LogBox } from 'react-native';
+
+// ignore all log notifications:
+LogBox.ignoreAllLogs();
+
 
 const FBLoginButton = require('./FBLoginButton');
 
@@ -51,7 +55,7 @@ class Login extends Component{
     super(props);
     this.state= {
       stt: ['abc'],
-      id_login: '',
+      id_login: 0,
       email : '',
       password : '',
       status: '',
@@ -83,6 +87,7 @@ class Login extends Component{
             console.log('status: ' + a)
             if (a === 'Success') {
               const b = responseJson.id;
+              console.log('id login: ' + b)
               this.setState({id_login: b});
               console.log('Login thành công: ' + 'email: ' + this.state.email + "/" + "password: " + this.state.password);
               return this.props.navigation.navigate('Profile', {id_login: this.state.id_login});

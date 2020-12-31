@@ -4,11 +4,11 @@ import {Image, Text, TouchableOpacity, View, StyleSheet} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Moment from 'moment';
 
-const dataArray = [
-    { title: "First Element", content: "Lorem ipsum dolor sit amet" },
-    { title: "Second Element", content: "Lorem ipsum dolor sit amet" },
-    { title: "Third Element", content: "Lorem ipsum dolor sit amet" }
-];
+// const dataArray = [
+//     { title: "First Element", content: "Lorem ipsum dolor sit amet" },
+//     { title: "Second Element", content: "Lorem ipsum dolor sit amet" },
+//     { title: "Third Element", content: "Lorem ipsum dolor sit amet" }
+// ];
 
 export default class AccordionCustomHeaderContent extends Component {
     static navigationOptions= {
@@ -66,7 +66,7 @@ export default class AccordionCustomHeaderContent extends Component {
                 Xuất xứ: {item.origin}
             </Text>
             <Text style={styles.box}>
-                Xuất xứ: {item.origin}
+                Giá: {item.price}
             </Text>
             </View>
         );

@@ -40,7 +40,7 @@ export default class thanhtoan extends Component{
     }
 
     payment = () => {
-
+        console.log("thanh toan number: "+ this.state.number)
         var formdata = new FormData();
         formdata.append('name', this.state.name)
         formdata.append('phone', this.state.phone)
@@ -49,12 +49,14 @@ export default class thanhtoan extends Component{
         formdata.append('id_user', this.state.id_user_thanhtoan)
         formdata.append('id_cat', this.state.id_cat)
         formdata.append('total_cost', this.state.total)
+        formdata.append('number', this.state.number)
 
         fetch(url_thanhtoan, {
             method: 'POST',
             body: formdata
         }).then((response) => response.json())
             .then((json) => {
+                console.log("id thnah toan "+ this.state.id_user_thanhtoan)
                 if (json.status == '200') {
                     // this.setState({
                     //     mess: 'ok',
@@ -73,7 +75,7 @@ export default class thanhtoan extends Component{
                             { text: "OK", onPress: () =>
                                     this.props.navigation.navigate('Hoadon',
                                         {data: this.props.navigation.getParam('data'),
-                                            id_user_TF: this.state.id_user_TF, total: this.state.total,
+                                            id_user_thanhtoan: this.state.id_user_thanhtoan, total: this.state.total,
                                             number: this.state.number, date: date, id_bill: id_bill})}
                         ],
                         { cancelable: false }

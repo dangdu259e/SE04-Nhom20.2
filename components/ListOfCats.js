@@ -53,6 +53,7 @@ class Cat extends Component {
         fetch(url_getall+(this.state.page+1))
             .then((response) => response.json())
             .then((json) => {
+                console.log("id "+ this.state.id_listofcat)
                 if (json.length !==0 ){
                     mang = mang.concat(json);
                     this.setState({
@@ -105,7 +106,7 @@ class Cat extends Component {
                                         </View>
                                         <View>
                                             {/*onPress={this.addThisProductToCart.bind(this)}>*/}
-                                            <TouchableOpacity style={styles.textTouch} onPress={() => {this.props.navigation.navigate('Buy', {data: item, id_listofcat: this.state.id_listofcat});}}>
+                                            <TouchableOpacity style={styles.textTouch} onPress={() => {this.props.navigation.navigate('Buy', {data: item, id_catDetail: this.state.id_listofcat});}}>
                                                               {/* onPress={() => {this.props.navigation.navigate('Buy', {data: item});}}>*/}
                                                 <Text style={styles.min_text}>Mua</Text>
                                             </TouchableOpacity>

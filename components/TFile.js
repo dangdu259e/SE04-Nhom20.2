@@ -86,6 +86,7 @@ export default class TFile extends React.Component{
     componentDidMount() {
         const data = this.props.navigation.getParam('data');
         a = this.state.data.concat(data)
+        console.log("id TF "+ this.state.id_user_TF)
         this.setState({
             data: a,
             amount : data.price,
