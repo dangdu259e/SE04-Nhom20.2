@@ -12,8 +12,10 @@
 6. Phân tích bài toán
 7. Thiết kế mô hình ứng dụng
 8. Danh sách các chức năng của phần mềm
-9. Kết luận
-10. Hướng phát triển
+9. Thiết kế cơ sở dữ liệu
+10. Kết quả đạt được
+11. Phân task và viết code
+12. Hướng phát triển
 ~~~
 
 ---
@@ -85,7 +87,7 @@
     
    ### Công nghệ sử dụng
     - Ngôn ngữ lập trình:
-        * Back-end: Flask Python.
+        1. Back-end: Flask Python.
             Flask là một web framework, thuộc loại micro-framework được xây dựng bằng 
         ngôn ngữ Python. Flask cho phép xây dựng các ứng dụng web từ đơn giản đến phức tạp;
         có thể xây dựng các API nhỏ, ứng dụng web như các trang blog, wiki hoặc một website
@@ -102,8 +104,8 @@
                 response objject, templates, ...
            Nhược điểm: đôi khi phải tự mìnhcode nhiều hơn hoặc cần tự gọi thêm các tiện ích
            mở rộng.
-        * Front-end (Web admin): HTML, CSS, Bootstrap.
-        * Framework: React Native.
+        2. Front-end (Web admin): HTML, CSS, Bootstrap.
+        3. Framework: React Native.
             React Native là một framework do công ty công nghệ nổi tiếng Facebook phát triển 
         nhằm mục đích giải quyết bài toán hiệu năng của Hybrid và bài toán chi phí khi mà phải
         viết nhiều loại ngôn ngữ native cho từng nền tảng di động. Chúng ta sẽ build được 
@@ -130,11 +132,11 @@
     tái sử dụng.
     - Chức năng từng tầng:
         * Presentation: hiển thị các thnàh phần giao diện để tương tác với người dùng như tiếp
-    nhận thông tin, thông báo lỗi, bao gồm các thành phần
+        nhận thông tin, thông báo lỗi, bao gồm các thành phần
         * Business Logic: thực hiện hành vi nghiệp vụ của phần mềm như tính toán, đánh giá tính 
-    hợp lệ của thông tin, ... ; di chuyển, xử lý thông tin giữa hai taàng trên dưới.
+        hợp lệ của thông tin, ... ; di chuyển, xử lý thông tin giữa hai taàng trên dưới.
         * Data: nơi lưu trữ và trích xuất dữ liệu từ các hệ quản trị CSDL hay các file trong 
-    hệ thống. Cho phép tầng Business logic thực hiện các truy vấn dữ liệu.
+        hệ thống. Cho phép tầng Business logic thực hiện các truy vấn dữ liệu.
     
 ## :large_blue_diamond: **Danh sách các chức năng của phần mềm**
     - Đối với web admin:
@@ -145,9 +147,9 @@
             * Sau khi bấm Login: nếu tài khoản đăng nhập đúng thì chuyển sang trang tiếp theo.
         2. Thao tác với màn hình User account:
             * Click 'User account', hệ thống hiển thị dữ liệu thông tin các tài khoản KH lên 
-        màn hình view cho người dùng admin.
+            màn hình view cho người dùng admin.
             * Admin chỉ có quyền xem các thông tin người dùng, không được quyền thêm, sửa hoặc
-        xoá account.
+            xoá account.
         3. Thao tác với trang cat information:
             * Admin có quyền xem, tạo mới, sửa hoặc xoá thông tin sản phẩm.
         4. Thao tác trên trang bills:
@@ -158,22 +160,22 @@
     - Đối với ứng dụng di động:
         1. Đăng nhập: sử dụng tài khoản (email và password) để đăng nhập.
             * Tạo tài khoản: tạo tài khoản mới trên ứng dụng, yêu cầu khách hàng nhập 
-        thông tin (username, password, name, phone, add).
+            thông tin (username, password, name, phone, add).
             * Quên mật khẩu: trong trường hợp đã có tài khoản nhưng quên mật khẩu thì có thể 
-        thay đổi mật khẩu (yêu cầu nhập đúng tài khoản và số điện thoại đã đăng ký).
+            thay đổi mật khẩu (yêu cầu nhập đúng tài khoản và số điện thoại đã đăng ký).
         2. Hiển thị danh sách sản phẩm:
             * Sau khi đăng nhập thành công, danh sách về các sản phẩm (cat) được hiển thị, tối đa 
-        một list chỉ hiển thị 3 đối tượng cat, sau đó cập nhật thêm dữ liệu khi kéo tới cuối trang.
+            một list chỉ hiển thị 3 đối tượng cat, sau đó cập nhật thêm dữ liệu khi kéo tới cuối trang.
         3. Hiển thị thông tin chi tiết sản phẩm:
             * Chi tiết sản phẩm bao gồm tên, xuất xứ, giống , nguồn gốc xuất xứ, giá tiền, ...
         4. Lựa chọn số lượng sản phẩm: 
             * Người dùng chọn số lượng mèo muốn mua. Có thể tăng hoặc giảm số lượng, không được 
-        giảm đến 0.
+            giảm đến 0.
             * Số lượng và tổng tiền sẽ được cập nhật và hjiển thị ngay cho KH khi thao tác thay đổi
-        số lượng.
+            số lượng.
         5. Thông tin thanh toán:
             * KH chọn mua sản phẩm, nhập các thông tin các nhân bao gồm tên, địa chỉ, số điện thoại,
-        để tiến hành thanh toán.
+            để tiến hành thanh toán.
             * Xác nhận mua thành công, hiển thị lịch sử mua hàng cho người dùng. 
         6. Có thể tiếp tục mua mặt hàng khác sau khi mua xong.
     - API:
@@ -220,7 +222,7 @@
         - Tạo bản prototype của phần mềm.
         - Thiết kế cơ sở dữ liệu.
     2. Công việc riêng:
-        * Đặng Trung Du:
+##### Đặng Trung Du:
             - Viết API cho admin, user: truy vấn lấy dữ liệu từ db rồi hiển thị lên màn hình.
             - Thiết kế web hiển thị màn hình.
             - Phân tách các chức năng thành các file, package theo từng nghiệp vụ.
@@ -231,16 +233,14 @@
             - Xử lý dữ liệu màn hình forgot password: gửi request xuống API để cập nhật dữ liệu.
             - Xử lý dữ liệu màn hình create new account: gói dữ liệu người dùng nhập rồi gửi
             request xuống API để lưu trữ thông tin.
-        * Nguyễn Anh Thư:
+##### Nguyễn Anh Thư:
             - Viết API cho bill, cat: truy vấn lấy dữ liệu từ db và hiển thị lên màn hình.
-            - Viết API update a cat: lấy dữ liệu từ form người dùng gửi lên API, truy vấn db
-            update dữ liệu.
-            - Viết API delete a cat: xử lý nút delete, gửi API thực hiện xoá dữ liệu.
+            - Viết API update, delete a cat: lấy dữ liệu từ form người dùng gửi lên API,
+            truy vấn db update dữ liệu.
             - Viết API create a new cat: xử lý form nhập, gửi request xuống APi, truy vấn db
             lưu trữ dữ liệu.
             - Thiết kế giao diện List of cats, Cat details, Payment, History.
-            - Xử lý dữ liệu màn hình List of cats: truy xuất lấy dữ liệu danh sách theo từng
-            phần một lượt.
+            - Xử lý dữ liệu màn hình List of cats: truy xuất lấy dữ liệu danh sách sản phẩm.
             - Xử lý dữ liệu Cat details: đẩy dữ liệu trang trước sang trang sau.
             - Xử lý Payment: yêu cầu API lưu trữ form thông tin thanh toán.
             - Xử lý History: hiển thị thông tin mua hàng thành công, yêu cầu API lưu dữ diệu
