@@ -1,11 +1,7 @@
 import React, {Component} from 'react';
 import {Alert, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {COLOR_DARK_RED} from './myColor';
-import {IPV4} from '../config';
-
-let baseUrl = 'http://'+IPV4+':5000/api/check/account/';
-
-// let baseUrl = 'http://192.168.1.10'+':5000/api/check/account/';
+import {url_forgotPassword} from "../URL-config";
 
 export default class ForgotPassword extends Component{
     static navigationOptions= {
@@ -40,7 +36,7 @@ export default class ForgotPassword extends Component{
             formdata.append('phone', this.state.phone);
             console.log(formdata)
 
-            fetch(baseUrl, {
+            fetch(url_forgotPassword, {
                 method: 'POST',
                 body: formdata
             }).then((response) => response.json())

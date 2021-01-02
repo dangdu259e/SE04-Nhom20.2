@@ -1,6 +1,8 @@
 from flask import request, jsonify
 import secrets
-from app.Services import Connection, insertUser, ServiceUser
+
+from app.Entity import Customer
+from app.Services import Connection, ServiceUser
 
 secret = secrets.token_urlsafe(32)
 conn = Connection.ConnectionDB()
@@ -25,5 +27,5 @@ def insertuser():
     # password = request.args.get('password', None)
     email = request.form.get('email')
     password = request.form.get('password')
-    result = insertUser.insert_user(email, password)
+    result = Customer.insert_user(email, password)
     return result, 201

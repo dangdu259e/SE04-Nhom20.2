@@ -1,12 +1,9 @@
 import React, {Component} from 'react';
 import {Alert, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {COLOR_DARK_RED} from './myColor';
-import {IPV4} from '../config';
-// let baseUrl = ipv4+':5000/api/create/user';
-// let baseUrl = 'http://192.168.1.10:5000/api/create/user/';
-var baseUrl = 'http://'+IPV4+':5000/api/create/user/';
+import {url_createAccount} from "../URL-config";
 
-export default class ForgotPassword extends Component{
+export default class CreateAccount extends Component{
     static navigationOptions= {
         headerShown: false,
     }
@@ -60,7 +57,7 @@ export default class ForgotPassword extends Component{
                     },
                     {
                         text: "OK", onPress: () =>
-                            fetch(baseUrl, {
+                            fetch(url_createAccount, {
                                 method: 'POST',
                                 body: formdata,
                             }).then((response) => response.json())

@@ -11,6 +11,7 @@
 
 //https://vntalking.com/react-native-phan-biet-props-va-state-don-gian-de-hieu.html
 import React,{Component} from 'react';
+
 import { NetworkInfo } from "react-native-network-info";
 import {
   StyleSheet,
@@ -19,41 +20,56 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+
   TouchableWithoutFeedback, Keyboard, Alert
 } from 'react-native';
 import {COLOR_DARK_RED, COLOR_GRAY, COLOR_LIGHT_RED, backco} from './myColor'
 import {  createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack'
-import ListOfCats from "./ListOfCats";
+
+
+import Cat from './ListOfCats';
+import CatDetails from './CatDetails';
+import TFile from './TFile';
+import thanhtoan from './thanhtoan';
+import hoadon from './hoadon';
+
 import ForgotPassword from "./ForgotPassword";
 import CreateAccount from "./CreateAccount";
 import ResetPassword from "./ResetPassword";
-import TabNav from "./TabNav";
+import {url_login} from "../URL-config";
+
+import { LogBox } from 'react-native';
+
+// ignore all log notifications:
+LogBox.ignoreAllLogs();
+
 
 const FBLoginButton = require('./FBLoginButton');
-let baseUrl = 'http://192.168.1.10'+':5000/api/login/user/';
+
 class Login extends Component{
   static navigationOptions= {
     headerShown: false,
   }
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state= {
-      email:'',
-      password: '',
-      kq: 'KET QUA'
-  }
-
+      stt: ['abc'],
+      id_login: 0,
+      email : '',
+      password : '',
+      status: '',
+      kq: 'KET QUA',
+    }
   }
   handleEmail=(text)=>{
     this.setState({email: text})
-
   }
   handlePassword=(text)=>{
     this.setState({password: text})
-
   }
-  checkLogin =  () =>{
+
+  checkLogin = () =>{
     if(this.state.email == '' && this.state.email==''){
       alert('Mời bạn nhập đầy đủ Email và Password')
     }else {
@@ -62,7 +78,7 @@ class Login extends Component{
       formdata.append('password', this.state.password);
       console.log(formdata)
 
-      fetch(baseUrl, {
+      fetch(url_login, {
         method: 'POST',
         body: formdata
       }).then((response) => response.json())
@@ -70,8 +86,11 @@ class Login extends Component{
             var a = responseJson.Status;
             console.log('status: ' + a)
             if (a === 'Success') {
+              const b = responseJson.id;
+              console.log('id login: ' + b)
+              this.setState({id_login: b});
               console.log('Login thành công: ' + 'email: ' + this.state.email + "/" + "password: " + this.state.password);
-              return this.props.navigation.navigate('Profile');
+              return this.props.navigation.navigate('Profile', {id_login: this.state.id_login});
             } else {
               console.log('Login khong thanh cong: ' + 'email: ' + this.state.email + "/" + "password: " + this.state.password);
               Alert.alert('Tài khoản hoặc mật khẩu của bạn chưa chính xác');
@@ -126,11 +145,10 @@ class Login extends Component{
 
               <View>
                 <TouchableOpacity style={styles.loginButon}
-                                  title="Login"
-                                  // onPress={() => this.props.navigation.navigate('Profile')}
-                                  onPress={()=> {this.checkLogin()}}
+                    title="Login"
+                    onPress={() => {this.checkLogin()}}
                 >
-                  <Text style={styles.loginButtonTitle}>Login</Text>
+                  <Text style={styles.loginButtonTitle}>Login </Text>
                 </TouchableOpacity>
               </View>
 
@@ -167,9 +185,13 @@ const AppNavigator= createStackNavigator(
         navigationOptions: { headerShown: false}
       },
       Profile: {
-        screen: ListOfCats,
+        screen: Cat,
         navigationOptions: { headerShown: false}
       },
+      CatDetail : CatDetails,
+      Buy: TFile,
+      Thanhtoan: thanhtoan,
+      Hoadon: hoadon,
       ForgotPassword:{
         screen: ForgotPassword,
         navigationOptions: {headerShown: false}

@@ -4,7 +4,6 @@ from app import app
 from app.Services import add_one
 from app.Entity import cat
 
-
 @app.route('/add_one', methods=['POST'])
 def add():
     id = request.form.get('id')

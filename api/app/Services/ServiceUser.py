@@ -15,7 +15,6 @@ def check_Login(email, password):
             sql = "SELECT * FROM `user` WHERE username = %s AND password = %s"
             cursor.execute(sql, (email, password))
             data = cursor.fetchall()
-            print(data[0])
             if (len(data) > 0):
                 temp = data[0]
                 result = {"Status": "Success"}
@@ -26,7 +25,6 @@ def check_Login(email, password):
                 result = {"Status": "Invalid"}
                 user = {"username": email, 'password': password}
                 result.update(user)
-                # print(result)
                 return result
         connection.commit()
     finally:
@@ -73,9 +71,11 @@ def resetPassword (id, password):
             cursor.execute(sql, (id,password))
             temp = cursor.fetchall()
             if (len(temp) > 0):
-                return 'Success'
+                result = {"Status": "Success"}
+                return result
             else:
-                return 'Invalid'
+                result = {"Status": "Invalid"}
+                return result
     finally:
         connection.close()
 

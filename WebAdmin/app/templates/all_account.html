@@ -54,7 +54,7 @@
                     <th>Name</th>
                     <th>Add</th>
                     <th>Phone</th>
-                    <th> ~~~~~~~~~ </th>
+{#                    <th> ~~~~~~~~~ </th>#}
                   </tr>
                 </thead>
                 <tbody width="100">
@@ -66,18 +66,18 @@
                         <td>{{ line.name }}</td>
                         <td>{{ line.add }}</td>
                         <td>{{ line.phone }}</td>
-                        <td>
-                            <a class='btnupdate' href={{ url_for('updateaccount', id = line.id, username=line.username, password=line.password, name=line.name, add=line.add,  phone=line.phone ) }}>Update</a>
-                            <a class='btndelete' href={{ url_for('deleteAccount',id = line.id, username=line.username, password=line.password, name=line.name, add=line.add,  phone=line.phone ) }}>Delete</a>
-                        </td>
+{#                        <td>#}
+{#                            <a class='btnupdate' href={{ url_for('updateaccount', id = line.id, username=line.username, password=line.password, name=line.name, add=line.add,  phone=line.phone ) }}>Update</a>#}
+{#                            <a class='btndelete' href={{ url_for('deleteAccount',id = line.id, username=line.username, password=line.password, name=line.name, add=line.add,  phone=line.phone ) }}>Delete</a>#}
+{#                        </td>#}
                     </tr>
                 {% endfor %}
                 </tbody>
               </table>
             </div>
-            <div>
-               <a href="{{ url_for('create_account') }}">create account</a>
-            </div>
+{#            <div>#}
+{#               <a href="{{ url_for('create_account') }}">create account</a>#}
+{#            </div>#}
           <!-- follow me template -->
           <div class="labelbot">
               <label>&Omega;  Web admin quản lý dữ liệu  &Omega;</label>

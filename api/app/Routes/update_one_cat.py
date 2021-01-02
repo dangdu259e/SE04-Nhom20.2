@@ -2,7 +2,6 @@ from flask import request
 from app import app
 from app.Services import update_one
 
-
 @app.route('/update-cat', methods=['POST'])
 def update():
     id = request.form.get('id')
