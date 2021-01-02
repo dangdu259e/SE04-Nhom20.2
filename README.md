@@ -12,8 +12,10 @@
 6. Phân tích bài toán
 7. Thiết kế mô hình ứng dụng
 8. Danh sách các chức năng của phần mềm
-9. Kết luận
-10. Hướng phát triển
+9. Thiết kế cơ sở dữ liệu
+10. Kết quả đạt được
+11. Phân task và viết code
+12. Hướng phát triển
 ~~~
 
 ---
@@ -85,9 +87,25 @@
     
    ### Công nghệ sử dụng
     - Ngôn ngữ lập trình:
-        + Back-end: Flask Python.
-        + Front-end (Web admin): HTML, CSS, Bootstrap.
-        + Framework: React Native.
+        1. Back-end: Flask Python.
+            Flask là một web framework, thuộc loại micro-framework được xây dựng bằng 
+        ngôn ngữ Python. Flask cho phép xây dựng các ứng dụng web từ đơn giản đến phức tạp;
+        có thể xây dựng các API nhỏ, ứng dụng web như các trang blog, wiki hoặc một website
+        dựa theo thời gian hay trang web thương mại.
+        Flask cung cấp các công cụ, thư viện và công nghệ hỗ trợ để làm những công việc trên.
+            Ưu điểm:
+                - Là một micro-framework nên Flask là mọt môi trường độc lập, ít sử dụng các 
+                thư viện bên ngoài
+                - Nhẹ, ít lỗi do ít phụ thuộc cũng như dễ dàng phát hiện và xử lý các lỗi
+                bảo mật.
+                - Không có ORM, dẽ dàng kết nối với tiện ích mở rộng.
+                - Mã ngắn và đơn giản trong số các bộ xương Python khác,cung cấp người dùng 
+                phần cốt lõi được sử dụng nhất của khung dữ liệu web như URL routing, request,
+                response objject, templates, ...
+           Nhược điểm: đôi khi phải tự mìnhcode nhiều hơn hoặc cần tự gọi thêm các tiện ích
+           mở rộng.
+        2. Front-end (Web admin): HTML, CSS, Bootstrap.
+        3. Framework: React Native.
             React Native là một framework do công ty công nghệ nổi tiếng Facebook phát triển 
         nhằm mục đích giải quyết bài toán hiệu năng của Hybrid và bài toán chi phí khi mà phải
         viết nhiều loại ngôn ngữ native cho từng nền tảng di động. Chúng ta sẽ build được 
@@ -96,55 +114,142 @@
             Hiện nay, framework Flutter đang dần nổi lên và được nhiều nhà lập trình để ý tới,
             tuy nhiên, React native lại có những ưu điểm riêng, vượt trội:
             - Thiên về development/hotfix nhanh (hot reload, bundle injection).
-            - Sử dụng JS (quen thuộc với nhiều developer) và có thể share business logic codebase
-            với frontend (js).
-            - Back bởi Facebook, họ dùng cho product của họ hàng ngày nên developer hưởng lợi khá
-            nhiều từ đây.
-            - Hiện tại có rất nhiều thư viện, gần như đã rất đầy đủ cho các nhu cầu app thông dụng.
-    - Các phần mềm và thư viện sử dụng: Intellij, PyCharm, Flask, MySQL.
+            - Sử dụng JS (quen thuộc với nhiều developer) và có thể share business logic 
+            codebase với frontend (js).
+            - Back bởi Facebook, họ dùng cho product của họ hàng ngày nên developer hưởng lợi
+            khá nhiều từ đây.
+            - Hiện tại có rất nhiều thư viện, gần như đã rất đầy đủ cho các nhu cầu app 
+            thông dụng.
+    - Các phần mềm và thư viện sử dụng: Intellij, PyCharm, Flask, MySQL, ...
     
 ## :large_blue_diamond: **Thiết kế mô hình ứng dụng** 
-    - Sử dụng mô hình 3 tầng: là một loại kiến trúc phần mềm được tạo thnahf bởi 3 tầng, bao gồm: 
-    tầng giao dịch (Presentation tier), tầng logic (Logic tier), tầng dữ liệu (data tier).
+    - Sử dụng mô hình 3 tầng: là một loại kiến trúc phần mềm được tạo thành bởi 3 tầng, bao gồm: 
+    tầng giao dịch (Presentation tier), tầng logic (Logic tier), tầng dữ liệu (data tier). Đây 
+    là một kiến trúc client-server trong đó việc trình bày (presentation), xử lý (process), 
+    quản lý dữ liệu (data management) là các quá trình riêng biệt, tạo thành nhiều tầng khác nhau.
     - Mô hình ba tầng mang lại rất nhiều lợi ích cho việc sản xuất cũng như phát triển ứng dụng. 
-    Nó giúp lập trình viên có thể tạo ra một ứng dụng linh hoạt và dễ dàng sửa chữa, nâng cấp, tái 
-    sử dụng.
+    Nó giúp lập trình viên có thể tạo ra một ứng dụng linh hoạt và dễ dàng sửa chữa, nâng cấp,
+    tái sử dụng.
+    - Chức năng từng tầng:
+        * Presentation: hiển thị các thnàh phần giao diện để tương tác với người dùng như tiếp
+        nhận thông tin, thông báo lỗi, bao gồm các thành phần
+        * Business Logic: thực hiện hành vi nghiệp vụ của phần mềm như tính toán, đánh giá tính 
+        hợp lệ của thông tin, ... ; di chuyển, xử lý thông tin giữa hai taàng trên dưới.
+        * Data: nơi lưu trữ và trích xuất dữ liệu từ các hệ quản trị CSDL hay các file trong 
+        hệ thống. Cho phép tầng Business logic thực hiện các truy vấn dữ liệu.
     
 ## :large_blue_diamond: **Danh sách các chức năng của phần mềm**
-    - Đối với admin:
-        - Đăng nhập: sử dụng tài khoản (email và password đã cấp) để đăng nhập. Sau khi đăng nhập 
-        thành công, admin có thể thực hiện các thao tác quản lý và chỉnh sửa dữ liệu liên quan.
-        - Thêm, sửa, xoá: admin thực hiện update, kiểm tra các dữ liệu.
-        - Logout: thoát khỏi tài khoản sau khi hoàn tất các thao tác quản lý.
-    - Đối với user:
-        - Đăng nhập: sử dụng tài khoản (email và password (đã tự tạo)) để đăng nhập. Sau khi đăng
-        nhập thnàh công, khách hàng có thể thực hiện các thao tác tiếp theo.
-            + Tạo tài khoản User: tạo tài khoản trên ứng dụng di động (yêu cầu khách hàng nhập 
-            thông tin (username, password, name, phone, add)).
-            + Quên mật khẩu: trong trường hợp đã có tài khoản nhưng quên mật khẩu thì có thể 
-            thay đổi lại mật khẩu (yêu cầu nhập đúng tài khoản và số điện thoại đã đăng ký).
-        - Sau khi đăng nhập thành công, danh sách về các sản phẩm (cat) được hiển thị, tối ra một
-        list chỉ hiển thị 3 đối tượng cat, sau đó cập nhật thêm dữ liệu khi kéo tới cuối trang 
-        => hạn chế việc lấy quá nhiều dữ liệu dẫn tới quá tải server.
-        - Thông tin chi tiết về mèo sẽ được hiển thị.
-        - Sau khi chọn mua được sản phẩm, KH thực hiện nhập thông tin nhận hàng.
-        - Xác nhận mua thành công, lịch sử mua hàng sẽ được hiển thị. KH hoàn tất việc mua hàng,
-        có thể quay lại tiếp tục mua hàng.
+    - Đối với web admin:
+        1. Đăng nhập: sử dụng tài khoản (email và password đã cấp) để đăng nhập. 
+            * Hệ thống kiểm tra thông tin đăng nhập:
+                - Bắt buộc phải nhập đầy đủ các trường.
+                - Chỉ đăng nhập được với tài khoản đã được cấp.
+            * Sau khi bấm Login: nếu tài khoản đăng nhập đúng thì chuyển sang trang tiếp theo.
+        2. Thao tác với màn hình User account:
+            * Click 'User account', hệ thống hiển thị dữ liệu thông tin các tài khoản KH lên 
+            màn hình view cho người dùng admin.
+            * Admin chỉ có quyền xem các thông tin người dùng, không được quyền thêm, sửa hoặc
+            xoá account.
+        3. Thao tác với trang cat information:
+            * Admin có quyền xem, tạo mới, sửa hoặc xoá thông tin sản phẩm.
+        4. Thao tác trên trang bills:
+            * Xem thông tin hoá đơn thanh mua thành công của khách hàng
+            * Không có quyền thêm, sửa, xoá các bill.
+        5. Logout: thoát khỏi tài khoản sau khi hoàn tất các thao tác quản lý.
+        
+    - Đối với ứng dụng di động:
+        1. Đăng nhập: sử dụng tài khoản (email và password) để đăng nhập.
+            * Tạo tài khoản: tạo tài khoản mới trên ứng dụng, yêu cầu khách hàng nhập 
+            thông tin (username, password, name, phone, add).
+            * Quên mật khẩu: trong trường hợp đã có tài khoản nhưng quên mật khẩu thì có thể 
+            thay đổi mật khẩu (yêu cầu nhập đúng tài khoản và số điện thoại đã đăng ký).
+        2. Hiển thị danh sách sản phẩm:
+            * Sau khi đăng nhập thành công, danh sách về các sản phẩm (cat) được hiển thị, tối đa 
+            một list chỉ hiển thị 3 đối tượng cat, sau đó cập nhật thêm dữ liệu khi kéo tới cuối trang.
+        3. Hiển thị thông tin chi tiết sản phẩm:
+            * Chi tiết sản phẩm bao gồm tên, xuất xứ, giống , nguồn gốc xuất xứ, giá tiền, ...
+        4. Lựa chọn số lượng sản phẩm: 
+            * Người dùng chọn số lượng mèo muốn mua. Có thể tăng hoặc giảm số lượng, không được 
+            giảm đến 0.
+            * Số lượng và tổng tiền sẽ được cập nhật và hjiển thị ngay cho KH khi thao tác thay đổi
+            số lượng.
+        5. Thông tin thanh toán:
+            * KH chọn mua sản phẩm, nhập các thông tin các nhân bao gồm tên, địa chỉ, số điện thoại,
+            để tiến hành thanh toán.
+            * Xác nhận mua thành công, hiển thị lịch sử mua hàng cho người dùng. 
+        6. Có thể tiếp tục mua mặt hàng khác sau khi mua xong.
+    - API:
+        * Là nơi thực hiện các thao tác truy vấn tới database, định tuyến các trang hiển thị lên
+        màn hình.
+        * Bao gồm: Các package nghiệp vụ:
+            1. Entity: chứa các thực thể.
+            2. Routes: chứa các định tuyến của chương trình
+            3. Services: chứa các file thực hiện các truy vấn tới database. Service package bao gồm
+        các file thực thi các câu lệnh truy vấn tới database, với từng đối tượng cụ thể sẽ có các 
+        câu lệnh truy vấn khác nhau, rõ ràng. Để an toàn cho dữ liệu, mỗi lần truy vấn tới database,
+        service sẽ thực hiện việc mở và ngắt kết nối, để thuận tiện, việc connect sẽ được tách ra 
+        một file riêng, khi cần, các việc truy vấn chỉ cần gọi file kết nối và thực thi câu lệnh.
+        * Toàn bộ phần code của API đều được viết bằng flask python
+        * Các route của web admin hay ứng dụng di động sẽ trỏ tới từng route trong api tuỳ từng mục đích.
+        Các url trong api được trỏ tới sẽ thực thi các công việc để trả về kết quả.
+        
+## :large_blue_diamond: **Thiết kế cơ sở dữ liệu** 
+    Các thông tin cần lưu trữ:
+        - admin: id (PK), username, password, name, add, phone.
+        - cat: id (PK), name, gender, origin, type, price, features, quantity, img, guide.
+        - uer: id (PK), username, password, name.
+        - bill: id (PK), name, phone, address, note, id_user (FK), id_cat (FK), id_payment (FK).
+        - payment: id (PK), id_bill (FK), purchase_date, total_cost.
 
-## :large_blue_diamond: **Kết luận**
-    - Trang web dành cho admin đã đáp ứng được yêu cầu cơ bản: xem, thêm, sửa, xoá các thông tin.
-    Các luồng xử lý hoạt động ổn định, chức năng thao tác dễ dàng.
-    - App React Native hoạt động khá tốt, các giao diện được hiển thị rõ ràng, thông luồng liền
-    mạch với nhau, dễ dàng thực hiện các thao tác cơ bản như xem, mua, nhập thông tin,...
-    - Tuy nhiên, cả về website dành cho admin và app react native vẫn còn một số hạn chế như 
-    chưa validate form hết các trường dữ liệu, việc giao tiếp giữa các tầng chưa thật sự tối ưu,
-    giao diện tuy dễ sử dụng nhưng còn đơn giản, chưa bắt mắt.
+## :large_blue_diamond: **Kết quả đạt được**
+    - Website admin đã đáp ứng được yêu cầu cơ bản của người dùng với các chức năng: hiển thị thông tin 
+    tài khoản user, tài khoản admin, hiển thị thông tin danh sách các sản phẩm và hoá đơn người mua.
+    Danh sách sản phẩm có thể được thay đổi bao gồm thêm, sửa, xoá. Ứng dụng trên điện thoại di dộng 
+    đáp ứng được yêu cầu ban đầu, giao diện bắt mắt, các thoa tác gần như hoàn chỉnh như một ứng dụng
+    thương mại thông thường. Dữ liệu được quản lý rõ ràng, Các luồng xử lý hoạt động ổn định, đảm bảo 
+    các chức năng hoạt động dễ dàng, không gây bất tiện cho người sử dụng. Việc giao tiếp giữa các
+    tầng cơ bản ổn định, cơ sở dữ liệu nhất quán, dữ liệu được thao tác. Giao diện rõ ràng, dễ sử dụng.
+    - Tuy nhiên, website và app vẫn còn một số hạn chế nhất định cần tiếp tục cải thiện để hoàn thiện hơn.
+    Các chức năng hoạt động ổn định nhưng chưa thật sự tối ưu, API còn đơn giản. Giao diện còn đơn giản,
+    chưa bắt mắt, chưa có những tính năng đặc biệt.
 
+## :large_blue_diamond: **Phân task và viết code** 
+    1. Công việc chung:
+        - Cài đặt các công cụ và môi trường lập trình.
+        - Tìm hiểu về Flask Python và React Native.
+        - Tìm hiểu về mô hình ứng dụng.
+        - Lên danh sach các chức năng cần thực hiện của chương trình (bản sơ bộ).
+        - Tạo bản prototype của phần mềm.
+        - Thiết kế cơ sở dữ liệu.
+    2. Công việc riêng:
+##### Đặng Trung Du:
+            - Viết API cho admin, user: truy vấn lấy dữ liệu từ db rồi hiển thị lên màn hình.
+            - Thiết kế web hiển thị màn hình.
+            - Phân tách các chức năng thành các file, package theo từng nghiệp vụ.
+            - Thông luồng giữa các route API.
+            - Thiết kế giao diện Splash, Login, Forgot password, Create new account.
+            - Xử lý dữ liệu màn hình Login: gửi request xuống api để kiểm tra dữ liệu và trả về 
+            kết quả.
+            - Xử lý dữ liệu màn hình forgot password: gửi request xuống API để cập nhật dữ liệu.
+            - Xử lý dữ liệu màn hình create new account: gói dữ liệu người dùng nhập rồi gửi
+            request xuống API để lưu trữ thông tin.
+##### Nguyễn Anh Thư:
+            - Viết API cho bill, cat: truy vấn lấy dữ liệu từ db và hiển thị lên màn hình.
+            - Viết API update, delete a cat: lấy dữ liệu từ form người dùng gửi lên API,
+            truy vấn db update dữ liệu.
+            - Viết API create a new cat: xử lý form nhập, gửi request xuống APi, truy vấn db
+            lưu trữ dữ liệu.
+            - Thiết kế giao diện List of cats, Cat details, Payment, History.
+            - Xử lý dữ liệu màn hình List of cats: truy xuất lấy dữ liệu danh sách sản phẩm.
+            - Xử lý dữ liệu Cat details: đẩy dữ liệu trang trước sang trang sau.
+            - Xử lý Payment: yêu cầu API lưu trữ form thông tin thanh toán.
+            - Xử lý History: hiển thị thông tin mua hàng thành công, yêu cầu API lưu dữ diệu
+            vào db bill.
+            
 #### :large_blue_diamond: **Hướng phát triển** 
-    Trong tương lại, nhóm em sẽ tiếp tục phát triển để hoàn thiện hơn về cả back-end lẫn front-end,
-    cả về web admin và app react native. Tối ưu các chức năng để giảm thiểu thời gian xử lý, 
-    phát triển giao diện, tạo thêm các chức năng mới đa dạng hơn. Cải thiện việc giao tiếp giữa các
-    tầng để truy vấn nhanh hơn, an toàn và hạn chế ngoại lệ.
+    Trong tương lại, chúng em sẽ tiếp tục phát triển để hoàn thiện hệ thống hơn. Tối ưu các câu lệnh
+    truy vấn và xử lý logic. Cải thiện việc giao tiếp giữa các tầng để hạn chế ngoại lên, cải tiến 
+    giao diện bắt mắt và các chức năng đa dạng hơn thuận tiện cho ngươi dùng, …
 
 #### :small_red_triangle: **React Native App** 
 
